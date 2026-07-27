@@ -148,36 +148,31 @@
 		if (!typeContainer) return;
 
 		const currentPhrase = phrases[phraseIndex];
+		let delay = isDeleting ? erasingDelay : typingDelay;
 
 		if (isDeleting) {
 			// Erasing
-			typeContainer.textContent = currentPhrase.substring(
-				0,
-				charIndex - 1,
-			);
+			typeContainer.textContent = currentPhrase.substring(0, charIndex - 1);
 			charIndex--;
-			setTimeout(typeLoop, erasingDelay);
 		} else {
 			// Typing
-			typeContainer.textContent = currentPhrase.substring(
-				0,
-				charIndex + 1,
-			);
+			typeContainer.textContent = currentPhrase.substring(0, charIndex + 1);
 			charIndex++;
-			setTimeout(typeLoop, typingDelay);
 		}
 
 		// Logic to switch modes
 		if (!isDeleting && charIndex === currentPhrase.length) {
 			// End of typing, wait then start deleting
 			isDeleting = true;
-			setTimeout(typeLoop, newPhraseDelay);
+			delay = newPhraseDelay;
 		} else if (isDeleting && charIndex === 0) {
 			// End of deleting, move to next phrase
 			isDeleting = false;
 			phraseIndex = (phraseIndex + 1) % phrases.length;
-			setTimeout(typeLoop, typingDelay);
+			delay = typingDelay; // Optional: wait a bit before typing next phrase, but typingDelay is fine
 		}
+		
+		setTimeout(typeLoop, delay);
 	}
 
 	// Start the hero typewriter slightly after the logo finishes
