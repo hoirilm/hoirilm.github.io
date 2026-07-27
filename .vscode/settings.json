@@ -1,0 +1,6 @@
+{
+  "editor.formatOnSave": false,
+  "[astro]": {
+    "editor.formatOnSave": false
+  }
+}
