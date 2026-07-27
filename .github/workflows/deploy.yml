@@ -18,6 +18,9 @@ jobs:
         uses: actions/checkout@v4
       - name: Install, build, and upload your site
         uses: withastro/action@v3
+        with:
+          # Sesuaikan dengan versi Node.js yang Anda gunakan
+          node-version: 22
         
   deploy:
     needs: build
