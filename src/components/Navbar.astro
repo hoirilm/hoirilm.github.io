@@ -1,0 +1,161 @@
+---
+---
+
+<nav
+	class="fixed w-full z-50 transition-all duration-300 glass-nav"
+	id="navbar"
+>
+	<div class="max-w-6xl mx-auto px-6 lg:px-8">
+		<div class="flex justify-between items-center h-20">
+			<!-- Logo -->
+			<div class="flex-shrink-0">
+				<a
+					href="#"
+					class="font-mono text-emerald-400 font-bold text-lg tracking-tighter flex items-center"
+				>
+					<span id="nav-logo-text"></span><span
+						class="cursor-blink">_</span
+					>
+				</a>
+			</div>
+
+			<!-- Desktop Menu -->
+			<div
+				class="hidden md:flex space-x-8 items-center font-sans text-sm font-medium"
+			>
+				<a
+					href="#about"
+					class="text-zinc-400 hover:text-emerald-400 transition-colors"
+					>01. About</a
+				>
+				<a
+					href="#experience"
+					class="text-zinc-400 hover:text-emerald-400 transition-colors"
+					>02. Experience</a
+				>
+				<a
+					href="#skills"
+					class="text-zinc-400 hover:text-emerald-400 transition-colors"
+					>03. Skills</a
+				>
+				<a
+					href="#projects"
+					class="text-zinc-400 hover:text-emerald-400 transition-colors"
+					>04. Projects</a
+				>
+				<a
+					href="#contact"
+					class="px-4 py-2 rounded border border-emerald-400/50 text-emerald-400 hover:bg-emerald-400/10 transition-colors font-mono text-xs"
+				>
+					Resume
+				</a>
+			</div>
+
+			<!-- Mobile Menu Button -->
+			<div class="md:hidden flex items-center">
+				<button
+					id="mobile-menu-btn"
+					class="text-zinc-400 hover:text-emerald-400 focus:outline-none"
+				>
+					<i class="fas fa-bars text-xl"></i>
+				</button>
+			</div>
+		</div>
+	</div>
+
+	<!-- Mobile Menu Panel -->
+	<div
+		id="mobile-menu"
+		class="hidden bg-zinc-900 border-b border-zinc-800 absolute w-full shadow-xl"
+	>
+		<div
+			class="px-6 py-6 flex flex-col space-y-4 text-sm font-medium font-mono text-center"
+		>
+			<a
+				href="#about"
+				class="text-zinc-400 hover:text-emerald-400 block py-2 mobile-link"
+				>01. About</a
+			>
+			<a
+				href="#experience"
+				class="text-zinc-400 hover:text-emerald-400 block py-2 mobile-link"
+				>02. Experience</a
+			>
+			<a
+				href="#skills"
+				class="text-zinc-400 hover:text-emerald-400 block py-2 mobile-link"
+				>03. Skills</a
+			>
+			<a
+				href="#projects"
+				class="text-zinc-400 hover:text-emerald-400 block py-2 mobile-link"
+				>04. Projects</a
+			>
+		</div>
+	</div>
+</nav>
+
+<script>
+	// --- Navbar Scroll Effect ---
+	const navbar = document.getElementById("navbar");
+	if (navbar) {
+		window.addEventListener("scroll", () => {
+			if (window.scrollY > 20) {
+				navbar.classList.add("shadow-lg");
+				navbar.classList.replace("py-4", "py-2");
+			} else {
+				navbar.classList.remove("shadow-lg");
+				navbar.classList.replace("py-2", "py-4");
+			}
+		});
+	}
+
+	// --- Mobile Menu Toggle ---
+	const mobileMenuBtn = document.getElementById("mobile-menu-btn");
+	const mobileMenu = document.getElementById("mobile-menu");
+
+	if (mobileMenuBtn && mobileMenu) {
+		mobileMenuBtn.addEventListener("click", () => {
+			mobileMenu.classList.toggle("hidden");
+			const icon = mobileMenuBtn.querySelector("i");
+			if (icon) {
+				if (mobileMenu.classList.contains("hidden")) {
+					icon.classList.remove("fa-times");
+					icon.classList.add("fa-bars");
+				} else {
+					icon.classList.remove("fa-bars");
+					icon.classList.add("fa-times");
+				}
+			}
+		});
+
+		// Close mobile menu on link click
+		document.querySelectorAll(".mobile-link").forEach((link) => {
+			link.addEventListener("click", () => {
+				mobileMenu.classList.add("hidden");
+				const icon = mobileMenuBtn.querySelector("i");
+				if (icon) {
+					icon.classList.remove("fa-times");
+					icon.classList.add("fa-bars");
+				}
+			});
+		});
+	}
+
+	// --- Navbar Logo Typing Effect ---
+	const logoText = "~ hoirilmochtar ";
+	const logoElement = document.getElementById("nav-logo-text");
+	let logoIndex = 0;
+
+	function typeLogo() {
+		if (logoElement && logoIndex < logoText.length) {
+			logoElement.textContent += logoText.charAt(logoIndex);
+			logoIndex++;
+			// Randomize typing speed for realistic effect (50ms to 150ms)
+			setTimeout(typeLogo, Math.random() * 100 + 50);
+		}
+	}
+
+	// Start logo typing after a short delay
+	setTimeout(typeLogo, 500);
+</script>

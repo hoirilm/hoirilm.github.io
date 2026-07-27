@@ -1,0 +1,185 @@
+---
+---
+
+<section id="about" class="min-h-screen flex items-center pt-20">
+	<div
+		class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center w-full"
+	>
+		<!-- Text Content -->
+		<div class="lg:col-span-7 reveal order-2 lg:order-1">
+			<p
+				class="text-emerald-400 font-mono text-sm tracking-widest mb-4"
+			>
+				SYSTEM_INIT // HELLO_WORLD
+			</p>
+			<h1
+				class="text-5xl md:text-6xl font-bold text-white mb-4 tracking-tight"
+			>
+				Hoiril Mochtar.
+			</h1>
+
+			<!-- Typewriter Container -->
+			<div class="h-10 mb-6">
+				<h2
+					class="text-2xl md:text-3xl font-semibold text-zinc-400"
+				>
+					<span id="typewriter-text"></span><span
+						class="cursor-blink text-emerald-400"
+						>_</span
+					>
+				</h2>
+			</div>
+
+			<p
+				class="text-zinc-400 leading-relaxed mb-8 max-w-xl text-lg"
+			>
+				I am a Middleware Programmer specializing in
+				bridging the gap between mobile platforms, backend
+				services, and third-party applications. Based in
+				Indonesia, I build high-availability transaction
+				routing systems for Tier-1 banks, ensuring
+				precision, security, and seamless operational flows.
+				Currently, I'm heavily exploring and integrating <span
+					class="text-emerald-400"
+					>Artificial Intelligence</span
+				> to further optimize enterprise solutions.
+			</p>
+
+			<!-- Metrics -->
+			<div
+				class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-10 border-y border-zinc-800 py-6"
+			>
+				<div>
+					<p class="text-3xl font-bold text-white mb-1">
+						15k+
+					</p>
+					<p
+						class="text-xs font-mono text-zinc-500 uppercase tracking-wider"
+					>
+						Peak TPS
+					</p>
+				</div>
+				<div>
+					<p class="text-3xl font-bold text-white mb-1">
+						99.9%
+					</p>
+					<p
+						class="text-xs font-mono text-zinc-500 uppercase tracking-wider"
+					>
+						Uptime SLA
+					</p>
+				</div>
+				<div class="hidden md:block">
+					<p class="text-3xl font-bold text-white mb-1">
+						6+
+					</p>
+					<p
+						class="text-xs font-mono text-zinc-500 uppercase tracking-wider"
+					>
+						Years Exp.
+					</p>
+				</div>
+			</div>
+
+			<div class="flex flex-wrap gap-4 font-mono text-sm">
+				<a
+					href="#projects"
+					class="px-6 py-3 bg-emerald-500 text-zinc-950 font-bold rounded hover:bg-emerald-400 transition-colors"
+				>
+					View Source
+				</a>
+				<a
+					href="https://linkedin.com/in/hoiril-mochtar-8549a614a/"
+					target="_blank"
+					class="px-6 py-3 border border-zinc-700 text-zinc-300 rounded hover:border-emerald-400 hover:text-emerald-400 transition-colors flex items-center gap-2"
+				>
+					<i class="fab fa-linkedin text-lg"></i> LinkedIn
+				</a>
+			</div>
+		</div>
+
+		<!-- Image -->
+		<div
+			class="lg:col-span-5 reveal order-1 lg:order-2 flex justify-center lg:justify-end"
+		>
+			<div class="relative group">
+				<div
+					class="absolute -inset-1 bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-lg blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"
+				>
+				</div>
+				<div
+					class="relative w-64 h-64 md:w-80 md:h-80 rounded-lg overflow-hidden border border-zinc-800 transform transition-transform duration-500 group-hover:-translate-y-2 group-hover:translate-x-2"
+				>
+					<div
+						class="absolute inset-0 bg-emerald-500/10 mix-blend-overlay z-10"
+					>
+					</div>
+					<!-- Image placed here with object-top to frame the face properly -->
+					<img
+						src="profile.jpeg"
+						alt="Hoiril Mochtar"
+						class="w-full h-full object-cover object-top grayscale hover:grayscale-0 transition-all duration-500"
+					/>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<script>
+	// --- Multi-sentence Typewriter Effect for Hero Section ---
+	const phrases = [
+		"I architect enterprise middleware.",
+		"I integrate banking ecosystems.",
+		"I explore AI-driven solutions.",
+		"I build high-availability systems.",
+	];
+
+	const typeContainer = document.getElementById("typewriter-text");
+
+	let phraseIndex = 0;
+	let charIndex = 0;
+	let isDeleting = false;
+	let typingDelay = 100;
+	let erasingDelay = 50;
+	let newPhraseDelay = 2000; // Time to wait before deleting
+
+	function typeLoop() {
+		if (!typeContainer) return;
+
+		const currentPhrase = phrases[phraseIndex];
+
+		if (isDeleting) {
+			// Erasing
+			typeContainer.textContent = currentPhrase.substring(
+				0,
+				charIndex - 1,
+			);
+			charIndex--;
+			setTimeout(typeLoop, erasingDelay);
+		} else {
+			// Typing
+			typeContainer.textContent = currentPhrase.substring(
+				0,
+				charIndex + 1,
+			);
+			charIndex++;
+			setTimeout(typeLoop, typingDelay);
+		}
+
+		// Logic to switch modes
+		if (!isDeleting && charIndex === currentPhrase.length) {
+			// End of typing, wait then start deleting
+			isDeleting = true;
+			setTimeout(typeLoop, newPhraseDelay);
+		} else if (isDeleting && charIndex === 0) {
+			// End of deleting, move to next phrase
+			isDeleting = false;
+			phraseIndex = (phraseIndex + 1) % phrases.length;
+			setTimeout(typeLoop, typingDelay);
+		}
+	}
+
+	// Start the hero typewriter slightly after the logo finishes
+	setTimeout(typeLoop, 2500);
+</script>
