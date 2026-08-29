@@ -9,18 +9,25 @@
 		<!-- Top Pill Header (Always Visible) -->
 		<div id="menu-trigger" class="flex items-center justify-between p-1.5 cursor-pointer select-none">
 			<!-- Avatar & Title -->
-			<div class="flex items-center gap-2.5 pl-1 py-0.5 overflow-hidden">
-				<div class="relative size-9 sm:size-10 shrink-0">
+			<div class="flex items-center gap-2.5 pl-1 py-1">
+				<!-- Interactive Avatar Trigger -->
+				<button 
+					type="button" 
+					id="avatar-trigger" 
+					class="relative size-9 sm:size-10 shrink-0 cursor-pointer rounded-full ring-1 ring-[var(--border)] hover:ring-2 hover:ring-[var(--accent)] hover:scale-105 active:scale-95 transition-all duration-300 group/avatar p-0 bg-transparent text-left focus:outline-none"
+					title="Klik untuk memperbesar foto profil"
+					aria-label="Perbesar foto profil"
+				>
 					<img 
 						src="/profile.jpeg" 
 						alt="Hoiril Mochtar" 
-						class="size-full rounded-full object-cover object-top ring-1 ring-[var(--border)] group-hover:scale-105 transition-transform" 
+						class="size-full rounded-full object-cover object-top" 
 						loading="eager"
 					/>
-					<span class="absolute bottom-0 right-0 size-2.5 bg-emerald-500 rounded-full ring-2 ring-[var(--surface)]"></span>
-				</div>
+					<span class="absolute bottom-0 right-0 size-2.5 bg-emerald-500 rounded-full ring-2 ring-[var(--surface)] pointer-events-none"></span>
+				</button>
 				
-				<div class="flex flex-col text-left leading-tight">
+				<div class="flex flex-col text-left leading-tight overflow-hidden">
 					<span class="font-semibold text-xs sm:text-sm text-[var(--fg)] tracking-tight">Hoiril Mochtar</span>
 					
 					<!-- Subtitle: Dynamic Status when collapsed / Location when expanded -->
@@ -147,129 +154,236 @@
 				</div>
 			</div>
 		</div>
+
+		<!-- Full-Cover Avatar Photo Overlay (Completely covers entire menu view) -->
+		<div 
+			id="avatar-fullcover-overlay"
+			class="absolute inset-0 z-30 w-full h-full rounded-[1.6rem] overflow-hidden bg-[var(--surface)] transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] opacity-0 scale-95 pointer-events-none select-none cursor-pointer flex flex-col justify-between"
+			title="Klik di mana saja untuk kembali ke menu"
+		>
+			<!-- High-Resolution Full Portrait Image -->
+			<img 
+				src="/profile.jpeg" 
+				alt="Hoiril Mochtar Portrait" 
+				class="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 hover:scale-105"
+			/>
+
+			<!-- Top Action Bar (Close Button) -->
+			<div class="relative z-10 w-full flex justify-end p-3">
+				<button 
+					type="button" 
+					id="avatar-cover-close-btn"
+					class="p-2 rounded-full bg-black/60 hover:bg-black/85 text-white backdrop-blur-md transition-all hover:scale-110 active:scale-95 cursor-pointer shadow-lg border border-white/15"
+					aria-label="Tutup foto profil"
+					title="Tutup foto profil (ESC)"
+				>
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+						<line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+					</svg>
+				</button>
+			</div>
+
+			<!-- Bottom Profile Details Overlay -->
+			<div class="relative z-10 p-4 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col gap-1 text-white">
+				<div class="flex items-center gap-2">
+					<span class="font-bold text-base text-white">Hoiril Mochtar</span>
+					<span class="size-2 bg-emerald-400 rounded-full animate-pulse"></span>
+				</div>
+				<p class="text-xs text-white/90 font-medium">Senior Middleware Engineer</p>
+				<div class="flex items-center justify-between pt-1.5 border-t border-white/15 text-[11px] text-white/70">
+					<span>📍 Madura, Indonesia</span>
+					<span class="text-white/60">Klik untuk kembali</span>
+				</div>
+			</div>
+		</div>
 	</div>
 </header>
 
 <script>
-	// Cycling Status
-	const status1 = document.getElementById('status-text-1');
-	const status2 = document.getElementById('status-text-2');
-	let currentStatus = 1;
+	function setupNavbar() {
+		// Cycling Status
+		const status1 = document.getElementById('status-text-1');
+		const status2 = document.getElementById('status-text-2');
+		let currentStatus = 1;
 
-	setInterval(() => {
-		if (!status1 || !status2) return;
-		if (currentStatus === 1) {
-			status1.classList.replace('translate-y-0', '-translate-y-full');
-			status1.classList.replace('opacity-100', 'opacity-0');
-			
-			status2.classList.replace('translate-y-full', 'translate-y-0');
-			status2.classList.replace('opacity-0', 'opacity-100');
-			currentStatus = 2;
-		} else {
-			status2.classList.replace('translate-y-0', 'translate-y-full');
-			status2.classList.replace('opacity-100', 'opacity-0');
-			
-			status1.classList.replace('-translate-y-full', 'translate-y-0');
-			status1.classList.replace('opacity-0', 'opacity-100');
-			currentStatus = 1;
+		if (status1 && status2) {
+			setInterval(() => {
+				if (currentStatus === 1) {
+					status1.classList.replace('translate-y-0', '-translate-y-full');
+					status1.classList.replace('opacity-100', 'opacity-0');
+					
+					status2.classList.replace('translate-y-full', 'translate-y-0');
+					status2.classList.replace('opacity-0', 'opacity-100');
+					currentStatus = 2;
+				} else {
+					status2.classList.replace('translate-y-0', 'translate-y-full');
+					status2.classList.replace('opacity-100', 'opacity-0');
+					
+					status1.classList.replace('-translate-y-full', 'translate-y-0');
+					status1.classList.replace('opacity-0', 'opacity-100');
+					currentStatus = 1;
+				}
+			}, 3500);
 		}
-	}, 3500);
 
-	// Menu Toggle & Expand Logic
-	const menuCard = document.getElementById('expandable-menu');
-	const menuTrigger = document.getElementById('menu-trigger');
+		// Menu & Full-Cover Avatar Expand Logic
+		const menuCard = document.getElementById('expandable-menu');
+		const menuTrigger = document.getElementById('menu-trigger');
+		const avatarTrigger = document.getElementById('avatar-trigger');
+		const avatarFullcoverOverlay = document.getElementById('avatar-fullcover-overlay');
+		const avatarCoverCloseBtn = document.getElementById('avatar-cover-close-btn');
 
-	if (menuCard && menuTrigger) {
-		// Smooth hover expansion for desktop
-		let leaveTimeout: number | undefined;
+		let isAvatarFullcover = false;
 
-		menuCard.addEventListener('mouseenter', () => {
-			window.clearTimeout(leaveTimeout);
+		const showFullcoverAvatar = () => {
+			if (!avatarFullcoverOverlay || !menuCard) return;
+			isAvatarFullcover = true;
 			menuCard.classList.add('is-open');
-		});
 
-		menuCard.addEventListener('mouseleave', () => {
-			leaveTimeout = window.setTimeout(() => {
-				menuCard.classList.remove('is-open');
-			}, 150);
-		});
+			avatarFullcoverOverlay.classList.remove('opacity-0', 'scale-95', 'pointer-events-none');
+			avatarFullcoverOverlay.classList.add('opacity-100', 'scale-100', 'pointer-events-auto');
+		};
 
-		// Toggle with Click on trigger (especially for mobile/touch)
-		menuTrigger.addEventListener('click', (e) => {
-			e.stopPropagation();
-			menuCard.classList.toggle('is-open');
-		});
+		const hideFullcoverAvatar = () => {
+			if (!avatarFullcoverOverlay) return;
+			isAvatarFullcover = false;
 
-		// Close when clicking outside
-		document.addEventListener('click', (e) => {
-			if (!menuCard.contains(e.target as Node)) {
-				menuCard.classList.remove('is-open');
+			avatarFullcoverOverlay.classList.remove('opacity-100', 'scale-100', 'pointer-events-auto');
+			avatarFullcoverOverlay.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
+		};
+
+		if (avatarTrigger) {
+			avatarTrigger.addEventListener('click', (e) => {
+				e.stopPropagation();
+				if (isAvatarFullcover) {
+					hideFullcoverAvatar();
+				} else {
+					showFullcoverAvatar();
+				}
+			});
+		}
+
+		if (avatarFullcoverOverlay) {
+			avatarFullcoverOverlay.addEventListener('click', (e) => {
+				e.stopPropagation();
+				hideFullcoverAvatar();
+			});
+		}
+
+		if (avatarCoverCloseBtn) {
+			avatarCoverCloseBtn.addEventListener('click', (e) => {
+				e.stopPropagation();
+				hideFullcoverAvatar();
+			});
+		}
+
+		if (menuCard && menuTrigger) {
+			let leaveTimeout: number | undefined;
+
+			menuCard.addEventListener('mouseenter', () => {
+				window.clearTimeout(leaveTimeout);
+				menuCard.classList.add('is-open');
+			});
+
+			menuCard.addEventListener('mouseleave', () => {
+				leaveTimeout = window.setTimeout(() => {
+					menuCard.classList.remove('is-open');
+					hideFullcoverAvatar();
+				}, 200);
+			});
+
+			// Toggle with Click on trigger (ignoring if avatar clicked)
+			menuTrigger.addEventListener('click', (e) => {
+				if (avatarTrigger && avatarTrigger.contains(e.target as Node)) return;
+				e.stopPropagation();
+				const willOpen = !menuCard.classList.contains('is-open');
+				menuCard.classList.toggle('is-open');
+				if (!willOpen) {
+					hideFullcoverAvatar();
+				}
+			});
+
+			// Close when clicking outside
+			document.addEventListener('click', (e) => {
+				if (!menuCard.contains(e.target as Node)) {
+					menuCard.classList.remove('is-open');
+					hideFullcoverAvatar();
+				}
+			});
+
+			// Close when clicking any menu link
+			document.querySelectorAll('.menu-link').forEach(link => {
+				link.addEventListener('click', () => {
+					menuCard.classList.remove('is-open');
+					hideFullcoverAvatar();
+				});
+			});
+
+			// Keyboard shortcut (⌘K or Ctrl+K / Escape)
+			document.addEventListener('keydown', (e) => {
+				if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+					e.preventDefault();
+					const willOpen = !menuCard.classList.contains('is-open');
+					menuCard.classList.toggle('is-open');
+					if (!willOpen) hideFullcoverAvatar();
+				} else if (e.key === 'Escape') {
+					if (isAvatarFullcover) {
+						hideFullcoverAvatar();
+					} else {
+						menuCard.classList.remove('is-open');
+					}
+				}
+			});
+		}
+
+		// Theme Segmented Control Logic
+		const themeBtns = document.querySelectorAll('.theme-btn');
+		
+		function applyTheme(themeValue: string) {
+			const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+			
+			if (themeValue === 'dark') {
+				document.documentElement.classList.add('dark');
+				localStorage.setItem('theme', 'dark');
+			} else if (themeValue === 'light') {
+				document.documentElement.classList.remove('dark');
+				localStorage.setItem('theme', 'light');
+			} else { // System
+				localStorage.removeItem('theme');
+				if (prefersDark) {
+					document.documentElement.classList.add('dark');
+				} else {
+					document.documentElement.classList.remove('dark');
+				}
 			}
-		});
 
-		// Close when clicking any menu link
-		document.querySelectorAll('.menu-link').forEach(link => {
-			link.addEventListener('click', () => {
-				menuCard.classList.remove('is-open');
+			// Update button active state
+			themeBtns.forEach(btn => {
+				const val = btn.getAttribute('data-theme-val');
+				if (val === themeValue) {
+					btn.classList.add('bg-[var(--surface)]', 'text-[var(--fg)]', 'shadow-xs');
+					btn.classList.remove('text-[var(--muted)]');
+				} else {
+					btn.classList.remove('bg-[var(--surface)]', 'text-[var(--fg)]', 'shadow-xs');
+					btn.classList.add('text-[var(--muted)]');
+				}
+			});
+		}
+
+		const savedTheme = localStorage.getItem('theme') || 'system';
+		applyTheme(savedTheme);
+
+		themeBtns.forEach(btn => {
+			btn.addEventListener('click', (e) => {
+				e.stopPropagation();
+				const val = btn.getAttribute('data-theme-val');
+				if (val) {
+					applyTheme(val);
+				}
 			});
 		});
-
-		// Keyboard shortcut (⌘K or Ctrl+K)
-		document.addEventListener('keydown', (e) => {
-			if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
-				e.preventDefault();
-				menuCard.classList.toggle('is-open');
-			} else if (e.key === 'Escape') {
-				menuCard.classList.remove('is-open');
-			}
-		});
 	}
 
-	// Theme Segmented Control Logic
-	const themeBtns = document.querySelectorAll('.theme-btn');
-	
-	function applyTheme(themeValue: string) {
-		const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-		
-		if (themeValue === 'dark') {
-			document.documentElement.classList.add('dark');
-			localStorage.setItem('theme', 'dark');
-		} else if (themeValue === 'light') {
-			document.documentElement.classList.remove('dark');
-			localStorage.setItem('theme', 'light');
-		} else { // System
-			localStorage.removeItem('theme');
-			if (prefersDark) {
-				document.documentElement.classList.add('dark');
-			} else {
-				document.documentElement.classList.remove('dark');
-			}
-		}
-
-		// Update button active state
-		themeBtns.forEach(btn => {
-			const val = btn.getAttribute('data-theme-val');
-			if (val === themeValue) {
-				btn.classList.add('bg-[var(--surface)]', 'text-[var(--fg)]', 'shadow-xs');
-				btn.classList.remove('text-[var(--muted)]');
-			} else {
-				btn.classList.remove('bg-[var(--surface)]', 'text-[var(--fg)]', 'shadow-xs');
-				btn.classList.add('text-[var(--muted)]');
-			}
-		});
-	}
-
-	// Initialize active theme button state
-	const savedTheme = localStorage.getItem('theme') || 'system';
-	applyTheme(savedTheme);
-
-	themeBtns.forEach(btn => {
-		btn.addEventListener('click', (e) => {
-			e.stopPropagation();
-			const val = btn.getAttribute('data-theme-val');
-			if (val) {
-				applyTheme(val);
-			}
-		});
-	});
+	setupNavbar();
+	document.addEventListener('astro:page-load', setupNavbar);
 </script>
