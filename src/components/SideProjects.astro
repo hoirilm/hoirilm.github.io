@@ -1,38 +1,100 @@
 ---
+interface ProjectImage {
+	src: string;
+	alt: string;
+	caption?: string;
+}
+
 interface SideProject {
+	id: string;
 	title: string;
+	shortTitle: string;
+	icon: string;
 	description: string;
 	repoUrl: string;
-	image: string;
+	demoUrl?: string;
+	images: ProjectImage[];
 	tags: string[];
 }
 
 const projects: SideProject[] = [
 	{
+		id: "activity-tracker",
 		title: "Klakoan Time Tracker",
+		shortTitle: "Klakoan Tracker",
+		icon: "⏱",
 		description: "Modern productivity & time tracking web application with real-time parallel multitasking timers, biometric Passkeys (WebAuthn), and automated Excel report generation.",
 		repoUrl: "https://github.com/hoirilm/activity-tracker",
-		image: "/projects/activity-tracker.jpg",
+		images: [
+			{
+				src: "/projects/activity-tracker.jpg",
+				alt: "Klakoan Time Tracker - Workspace Dashboard",
+				caption: "Workspace dashboard with real-time parallel timer tracking and active task switcher"
+			},
+			{
+				src: "/projects/activity-tracker.jpg",
+				alt: "Klakoan Time Tracker - Multi-task Timers",
+				caption: "Live multitasking timers with state synchronization and idle detection"
+			},
+			{
+				src: "/projects/activity-tracker.jpg",
+				alt: "Klakoan Time Tracker - Biometric Passkeys",
+				caption: "Passwordless biometric authentication powered by WebAuthn / FIDO2"
+			}
+		],
 		tags: ["Laravel 13", "Livewire 4", "Passkeys (WebAuthn)", "Tailwind CSS v4", "Flux UI"]
 	},
 	{
+		id: "devcalc",
 		title: "DevCalc CRM & Quotation",
+		shortTitle: "DevCalc CRM",
+		icon: "📊",
 		description: "Software quotation estimator & sales CRM pipeline platform with dynamic complexity multipliers (1.0x–3.5x), multi-tier billing schemes, and automated official PDF generation.",
 		repoUrl: "https://github.com/hoirilm/devcalc",
-		image: "/projects/devcalc.jpg",
+		images: [
+			{
+				src: "/projects/devcalc.jpg",
+				alt: "DevCalc CRM & Quotation - Pipeline",
+				caption: "Interactive Kanban sales pipeline with stage tracking and valuation metrics"
+			},
+			{
+				src: "/projects/devcalc.jpg",
+				alt: "DevCalc CRM & Quotation - Multipliers",
+				caption: "Dynamic complexity multipliers (1.0x–3.5x) and resource rate matrices"
+			},
+			{
+				src: "/projects/devcalc.jpg",
+				alt: "DevCalc CRM & Quotation - PDF Export",
+				caption: "Automated official proposal PDF generation with itemized cost breakdowns"
+			}
+		],
 		tags: ["Laravel 13", "Inertia.js v2", "Vue 3", "Tailwind CSS v4", "DomPDF"]
 	},
 	{
+		id: "esign",
 		title: "E-Sign Lab Report Generator",
+		shortTitle: "E-Sign Generator",
+		icon: "📜",
 		description: "Electronic medical lab report generator featuring cryptographic digital signatures, automated dynamic PDF generation, and public tamper-proof QR code verification.",
 		repoUrl: "https://github.com/hoirilm/esign",
-		image: "/projects/esign.jpg",
+		images: [
+			{
+				src: "/projects/esign.jpg",
+				alt: "E-Sign Lab Report Generator - Editor",
+				caption: "Medical lab report generator with digital signature stamps and instant preview"
+			},
+			{
+				src: "/projects/esign.jpg",
+				alt: "E-Sign Lab Report Generator - QR Portal",
+				caption: "Public tamper-proof QR verification portal validating document integrity"
+			}
+		],
 		tags: ["Laravel 13", "Livewire", "QR Verification", "DomPDF", "Tailwind CSS"]
 	}
 ];
 ---
 
-<section id="projects" class="w-full flex flex-col gap-6 scroll-mt-24">
+<section id="projects" class="w-full flex flex-col gap-4 scroll-mt-24">
 	<!-- Section Header -->
 	<div class="flex flex-col gap-1">
 		<div class="flex items-center gap-2 text-[var(--fg)]">
@@ -46,72 +108,547 @@ const projects: SideProject[] = [
 		</p>
 	</div>
 
-	<!-- Projects Grid with 16:9 Landscape Preview Images -->
-	<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-		{projects.map((project) => (
-			<a 
-				href={project.repoUrl} 
-				target="_blank" 
-				rel="noopener noreferrer" 
-				class="squircle bg-[var(--surface)] border border-[var(--border)] p-4 flex flex-col justify-between gap-3.5 overflow-hidden transition-all duration-300 hover:border-[var(--accent)]/50 hover:shadow-lg active:scale-98 group cursor-pointer"
-			>
-				<!-- 16:9 Landscape Image Container -->
-				<div class="relative w-full aspect-video rounded-xl overflow-hidden bg-[var(--pill-bg)] border border-[var(--border)]">
-					<img 
-						src={project.image} 
-						alt={project.title} 
-						loading="lazy" 
-						class="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
-					/>
-				</div>
+	<!-- Compact Project Gallery Selector Pills -->
+	<div class="flex items-center justify-between gap-2 pt-1">
+		<!-- Horizontal Pill Selector -->
+		<div class="flex items-center gap-1.5 overflow-x-auto hide-scrollbar py-0.5">
+			{projects.map((proj, idx) => (
+				<button 
+					type="button" 
+					class={`project-nav-pill text-xs px-3 py-1.5 rounded-lg border font-medium transition-all duration-200 cursor-pointer flex items-center gap-1.5 whitespace-nowrap select-none ${
+						idx === 0 
+							? 'bg-[var(--surface-hover)] border-[var(--accent)] text-[var(--fg)] shadow-sm font-semibold' 
+							: 'bg-[var(--pill-bg)] border-[var(--border)] text-[var(--muted)] hover:text-[var(--fg)]'
+					}`}
+					data-project-nav={idx}
+				>
+					<span>{proj.icon}</span>
+					<span>{proj.shortTitle}</span>
+					<span class="text-[10px] opacity-60 font-mono">({proj.images.length})</span>
+				</button>
+			))}
+		</div>
 
-				<!-- Content -->
-				<div class="flex flex-col gap-1.5 flex-grow">
-					<div class="flex items-center justify-between gap-2">
-						<h3 class="text-sm sm:text-base font-semibold text-[var(--fg)] group-hover:text-[var(--accent)] transition-colors">
-							{project.title}
-						</h3>
-						<svg class="size-4 text-[var(--muted)] group-hover:text-[var(--fg)] shrink-0 transition-colors" viewBox="0 0 24 24" fill="currentColor">
-							<path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
-						</svg>
+		<!-- Up/Down Stack Controls -->
+		<div class="flex items-center gap-1 shrink-0">
+			<span id="project-counter-indicator" class="text-xs font-mono text-[var(--muted)] px-1.5 hidden sm:inline">
+				01 / {String(projects.length).padStart(2, '0')}
+			</span>
+			<div class="flex items-center rounded-lg border border-[var(--border)] bg-[var(--pill-bg)] p-0.5">
+				<button 
+					type="button" 
+					id="project-prev-btn" 
+					class="p-1 rounded-md text-[var(--muted)] hover:text-[var(--fg)] hover:bg-[var(--surface)] transition-colors cursor-pointer"
+					title="Previous project (Up)"
+					aria-label="Previous project"
+				>
+					<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+						<path d="m18 15-6-6-6 6"/>
+					</svg>
+				</button>
+				<button 
+					type="button" 
+					id="project-next-btn" 
+					class="p-1 rounded-md text-[var(--muted)] hover:text-[var(--fg)] hover:bg-[var(--surface)] transition-colors cursor-pointer"
+					title="Next project (Down)"
+					aria-label="Next project"
+				>
+					<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+						<path d="m6 9 6 6 6-6"/>
+					</svg>
+				</button>
+			</div>
+		</div>
+	</div>
+
+	<!-- Stacked Project Deck Container (Single Compact Height) -->
+	<div class="relative w-full min-h-[380px]">
+		{projects.map((project, projIdx) => (
+			<article 
+				class={`project-deck-card squircle bg-[var(--surface)] border border-[var(--border)] p-4 sm:p-5 flex flex-col gap-3.5 transition-all duration-300 ${
+					projIdx === 0 
+						? 'relative opacity-100 translate-y-0 z-10' 
+						: 'absolute inset-0 opacity-0 translate-y-4 pointer-events-none z-0'
+				}`}
+				data-project-index={projIdx}
+				data-project-id={project.id}
+			>
+				<!-- Card Header: Title & Action Links -->
+				<div class="flex items-start justify-between gap-3">
+					<div class="flex flex-col gap-0.5">
+						<div class="flex items-center gap-2">
+							<span class="text-base">{project.icon}</span>
+							<h3 class="text-base sm:text-lg font-bold text-[var(--fg)]">
+								{project.title}
+							</h3>
+						</div>
+						<p class="text-xs sm:text-sm text-[var(--muted)] leading-[1.5] line-clamp-2">
+							{project.description}
+						</p>
 					</div>
 
-					<p class="text-xs text-[var(--muted)] leading-[1.6] line-clamp-2">
-						{project.description}
-					</p>
+					<!-- Links -->
+					<div class="flex items-center gap-1.5 shrink-0">
+						{project.demoUrl && (
+							<a 
+								href={project.demoUrl} 
+								target="_blank" 
+								rel="noopener noreferrer" 
+								class="p-1.5 rounded-lg bg-[var(--pill-bg)] border border-[var(--border)] text-[var(--muted)] hover:text-[var(--fg)] hover:border-[var(--accent)] transition-colors"
+								title="Live Demo"
+								aria-label={`Live Demo for ${project.title}`}
+							>
+								<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+									<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+									<polyline points="15 3 21 3 21 9"/>
+									<line x1="10" y1="14" x2="21" y2="3"/>
+								</svg>
+							</a>
+						)}
+						<a 
+							href={project.repoUrl} 
+							target="_blank" 
+							rel="noopener noreferrer" 
+							class="p-1.5 px-2.5 rounded-lg bg-[var(--pill-bg)] border border-[var(--border)] text-[var(--muted)] hover:text-[var(--fg)] hover:border-[var(--accent)] transition-colors flex items-center gap-1.5 text-xs font-medium"
+							title="GitHub Repository"
+							aria-label={`GitHub Repository for ${project.title}`}
+						>
+							<svg class="size-3.5" viewBox="0 0 24 24" fill="currentColor">
+								<path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+							</svg>
+							<span>Code</span>
+						</a>
+					</div>
 				</div>
 
-				<!-- Tag Badges -->
-				<div class="flex flex-wrap items-center gap-1.5 pt-2 border-t border-[var(--border)]">
-					{project.tags.map((tag) => (
-						<span class="text-[10px] font-mono text-[var(--muted)] px-2 py-0.5 rounded bg-[var(--pill-bg)]">
-							{tag}
-						</span>
-					))}
+				<!-- Compact Image Carousel (Layout 2: Slider + Dots + Lightbox) -->
+				<div 
+					class="relative w-full aspect-[16/9] max-h-52 sm:max-h-60 rounded-xl overflow-hidden bg-[var(--pill-bg)] border border-[var(--border)] group/carousel select-none cursor-zoom-in"
+					data-carousel-container={project.id}
+					title="Klik untuk memperbesar tampilan (Fullscreen)"
+				>
+					<!-- Track -->
+					<div 
+						class="carousel-track flex w-full h-full overflow-x-auto snap-x snap-mandatory hide-scrollbar scroll-smooth"
+						data-track-for={project.id}
+					>
+						{project.images.map((img, imgIdx) => (
+							<div 
+								class="carousel-slide min-w-full w-full h-full snap-center relative flex items-center justify-center bg-black/5"
+								data-image-index={imgIdx}
+								data-image-src={img.src}
+								data-image-alt={img.alt}
+								data-image-caption={img.caption || ""}
+								data-project-title={project.title}
+							>
+								<img 
+									src={img.src} 
+									alt={img.alt} 
+									loading="lazy" 
+									class="w-full h-full object-cover object-center transition-transform duration-500 hover:scale-[1.02]"
+								/>
+							</div>
+						))}
+					</div>
+
+					<!-- Carousel Left/Right Buttons -->
+					{project.images.length > 1 && (
+						<>
+							<button 
+								type="button" 
+								class="carousel-prev absolute left-2 top-1/2 -translate-y-1/2 z-10 size-7 sm:size-8 rounded-full bg-black/60 hover:bg-black/85 text-white flex items-center justify-center backdrop-blur-md opacity-0 group-hover/carousel:opacity-100 transition-all duration-200 hover:scale-105 active:scale-95 shadow-md cursor-pointer"
+								aria-label="Previous screenshot"
+								data-prev-for={project.id}
+							>
+								<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+									<path d="m15 18-6-6 6-6"/>
+								</svg>
+							</button>
+
+							<button 
+								type="button" 
+								class="carousel-next absolute right-2 top-1/2 -translate-y-1/2 z-10 size-7 sm:size-8 rounded-full bg-black/60 hover:bg-black/85 text-white flex items-center justify-center backdrop-blur-md opacity-0 group-hover/carousel:opacity-100 transition-all duration-200 hover:scale-105 active:scale-95 shadow-md cursor-pointer"
+								aria-label="Next screenshot"
+								data-next-for={project.id}
+							>
+								<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+									<path d="m9 18 6-6-6-6"/>
+								</svg>
+							</button>
+
+							<!-- Dots Indicator -->
+							<div class="absolute bottom-2 left-1/2 -translate-x-1/2 z-10 flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-black/50 dark:bg-black/70 backdrop-blur-md border border-white/10">
+								{project.images.map((_, dotIdx) => (
+									<button 
+										type="button" 
+										class={`carousel-dot h-1.5 rounded-full transition-all duration-300 ${dotIdx === 0 ? 'w-3.5 bg-[var(--accent)]' : 'w-1.5 bg-white/50 hover:bg-white'}`}
+										data-dot-for={project.id}
+										data-dot-index={dotIdx}
+										aria-label={`Slide ${dotIdx + 1}`}
+									/>
+								))}
+							</div>
+						</>
+					)}
+
+					<!-- Expand / Zoom Hint Pill -->
+					<div class="absolute top-2 right-2 z-10 flex items-center gap-1 px-2 py-0.5 rounded-md bg-black/60 hover:bg-black/80 text-white text-[10px] font-medium backdrop-blur-md border border-white/10 opacity-0 group-hover/carousel:opacity-100 transition-opacity pointer-events-none shadow-sm">
+						<svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+							<path d="M15 3h6v6"/><path d="M9 21H3v-6"/><path d="M21 3l-7 7"/><path d="M3 21l7-7"/>
+						</svg>
+						<span>Perbesar</span>
+					</div>
 				</div>
-			</a>
+
+				<!-- Tag Badges & Image Caption -->
+				<div class="flex items-center justify-between gap-2 flex-wrap pt-0.5">
+					<div class="flex flex-wrap items-center gap-1.5">
+						{project.tags.map((tag) => (
+							<span class="text-[10px] font-mono text-[var(--muted)] px-2 py-0.5 rounded bg-[var(--pill-bg)] border border-[var(--border)]">
+								{tag}
+							</span>
+						))}
+					</div>
+					<span class="text-[11px] text-[var(--muted)] flex items-center gap-1">
+						<span>🔍 Klik gambar untuk zoom</span>
+					</span>
+				</div>
+			</article>
 		))}
+	</div>
 
-		<!-- See More Card -->
-		<a 
-			href="https://github.com/hoirilm" 
-			target="_blank" 
-			rel="noopener noreferrer" 
-			class="squircle border border-dashed border-[var(--border)] p-4 flex flex-col items-center justify-center text-center gap-3 hover:bg-[var(--surface-hover)] hover:border-[var(--accent)] transition-all duration-300 group cursor-pointer"
-		>
-			<div class="p-4 rounded-full bg-[var(--surface)] border border-[var(--border)] text-[var(--muted)] group-hover:text-[var(--fg)] group-hover:scale-110 transition-all shadow-sm">
-				<svg class="size-6" viewBox="0 0 24 24" fill="currentColor">
+	<!-- Explore More on GitHub Link Bar -->
+	<a 
+		href="https://github.com/hoirilm" 
+		target="_blank" 
+		rel="noopener noreferrer" 
+		class="squircle border border-dashed border-[var(--border)] p-3 px-4 flex items-center justify-between gap-3 hover:bg-[var(--surface-hover)] hover:border-[var(--accent)] transition-all duration-300 group cursor-pointer"
+	>
+		<div class="flex items-center gap-2.5">
+			<div class="p-1.5 rounded-lg bg-[var(--surface)] border border-[var(--border)] text-[var(--muted)] group-hover:text-[var(--fg)] transition-all shadow-sm">
+				<svg class="size-4" viewBox="0 0 24 24" fill="currentColor">
 					<path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
 				</svg>
 			</div>
-			<div class="flex flex-col gap-0.5">
-				<span class="text-sm font-semibold text-[var(--fg)] group-hover:text-[var(--accent)] transition-colors">
-					Explore all on GitHub
+			<div class="flex flex-col text-left">
+				<span class="text-xs font-semibold text-[var(--fg)] group-hover:text-[var(--accent)] transition-colors">
+					Explore more projects on GitHub
 				</span>
-				<span class="text-xs text-[var(--muted)]">
+				<span class="text-[11px] text-[var(--muted)]">
 					@hoirilm &bull; Public Repositories
 				</span>
 			</div>
-		</a>
-	</div>
+		</div>
+
+		<div class="text-[var(--muted)] group-hover:text-[var(--accent)] group-hover:translate-x-0.5 transition-all">
+			<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+				<path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+			</svg>
+		</div>
+	</a>
 </section>
+
+<!-- Fullscreen Lightbox Modal Dialog -->
+<div 
+	id="project-lightbox" 
+	class="fixed inset-0 z-[100] hidden items-center justify-center p-3 sm:p-6 bg-black/90 backdrop-blur-md opacity-0 transition-opacity duration-300"
+	role="dialog" 
+	aria-modal="true" 
+	aria-hidden="true"
+>
+	<!-- Modal Content Box -->
+	<div class="relative w-full max-w-5xl max-h-[90vh] flex flex-col items-center justify-center gap-3">
+		<!-- Top Bar: Title & Close Button -->
+		<div class="w-full flex items-center justify-between text-white px-2">
+			<div class="flex flex-col">
+				<span id="lightbox-title" class="text-sm sm:text-base font-bold"></span>
+				<span id="lightbox-counter" class="text-xs text-white/60"></span>
+			</div>
+
+			<button 
+				type="button" 
+				id="lightbox-close" 
+				class="p-2 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors flex items-center gap-1 text-xs cursor-pointer"
+				aria-label="Close fullscreen view"
+			>
+				<span class="hidden sm:inline font-mono text-[10px] text-white/60">ESC</span>
+				<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+					<line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+				</svg>
+			</button>
+		</div>
+
+		<!-- Main Image Viewport -->
+		<div class="relative w-full flex items-center justify-center rounded-2xl overflow-hidden bg-black/40 border border-white/10 shadow-2xl">
+			<img 
+				id="lightbox-img" 
+				src="" 
+				alt="" 
+				class="max-h-[75vh] w-auto max-w-full object-contain transition-all duration-300"
+			/>
+
+			<!-- Lightbox Prev / Next Controls -->
+			<button 
+				type="button" 
+				id="lightbox-prev" 
+				class="absolute left-3 top-1/2 -translate-y-1/2 size-10 rounded-full bg-black/60 hover:bg-black/90 text-white flex items-center justify-center backdrop-blur-md border border-white/10 transition-all hover:scale-105 active:scale-95 cursor-pointer"
+				aria-label="Previous image"
+			>
+				<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+					<path d="m15 18-6-6 6-6"/>
+				</svg>
+			</button>
+
+			<button 
+				type="button" 
+				id="lightbox-next" 
+				class="absolute right-3 top-1/2 -translate-y-1/2 size-10 rounded-full bg-black/60 hover:bg-black/90 text-white flex items-center justify-center backdrop-blur-md border border-white/10 transition-all hover:scale-105 active:scale-95 cursor-pointer"
+				aria-label="Next image"
+			>
+				<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+					<path d="m9 18 6-6-6-6"/>
+				</svg>
+			</button>
+		</div>
+
+		<!-- Caption Info -->
+		<p id="lightbox-caption" class="text-xs sm:text-sm text-center text-white/80 max-w-2xl px-4 min-h-[1.5rem]"></p>
+	</div>
+</div>
+
+<script>
+	function setupCompactDeckAndCarousels() {
+		// 1. Setup Project Deck Switcher (Up/Down + Pill Selector)
+		const projectCards = document.querySelectorAll<HTMLElement>('.project-deck-card');
+		const navPills = document.querySelectorAll<HTMLButtonElement>('.project-nav-pill');
+		const counterIndicator = document.getElementById('project-counter-indicator');
+		const prevProjectBtn = document.getElementById('project-prev-btn');
+		const nextProjectBtn = document.getElementById('project-next-btn');
+
+		let currentProjectIndex = 0;
+		const totalProjects = projectCards.length;
+
+		const showProject = (index: number) => {
+			if (index < 0 || index >= totalProjects) return;
+			currentProjectIndex = index;
+
+			// Update Project Cards with smooth stack transition
+			projectCards.forEach((card, idx) => {
+				if (idx === index) {
+					card.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none', 'z-0');
+					card.classList.add('relative', 'opacity-100', 'translate-y-0', 'z-10');
+				} else {
+					card.classList.remove('relative', 'opacity-100', 'translate-y-0', 'z-10');
+					card.classList.add('absolute', 'inset-0', 'opacity-0', 'translate-y-4', 'pointer-events-none', 'z-0');
+				}
+			});
+
+			// Update Nav Pills
+			navPills.forEach((pill, idx) => {
+				if (idx === index) {
+					pill.className = 'project-nav-pill text-xs px-3 py-1.5 rounded-lg border font-semibold transition-all duration-200 cursor-pointer flex items-center gap-1.5 whitespace-nowrap select-none bg-[var(--surface-hover)] border-[var(--accent)] text-[var(--fg)] shadow-sm';
+				} else {
+					pill.className = 'project-nav-pill text-xs px-3 py-1.5 rounded-lg border font-medium transition-all duration-200 cursor-pointer flex items-center gap-1.5 whitespace-nowrap select-none bg-[var(--pill-bg)] border-[var(--border)] text-[var(--muted)] hover:text-[var(--fg)]';
+				}
+			});
+
+			// Update Project Counter
+			if (counterIndicator) {
+				counterIndicator.textContent = `${String(index + 1).padStart(2, '0')} / ${String(totalProjects).padStart(2, '0')}`;
+			}
+		};
+
+		navPills.forEach((pill) => {
+			pill.addEventListener('click', () => {
+				const idx = Number(pill.dataset.projectNav || '0');
+				showProject(idx);
+			});
+		});
+
+		prevProjectBtn?.addEventListener('click', () => {
+			const newIdx = (currentProjectIndex - 1 + totalProjects) % totalProjects;
+			showProject(newIdx);
+		});
+
+		nextProjectBtn?.addEventListener('click', () => {
+			const newIdx = (currentProjectIndex + 1) % totalProjects;
+			showProject(newIdx);
+		});
+
+		// 2. Setup Image Carousels inside each project
+		const carouselContainers = document.querySelectorAll<HTMLElement>('[data-carousel-container]');
+		
+		carouselContainers.forEach((container) => {
+			const projectId = container.dataset.carouselContainer;
+			if (!projectId) return;
+
+			const track = container.querySelector<HTMLElement>(`[data-track-for="${projectId}"]`);
+			const prevBtn = container.querySelector<HTMLButtonElement>(`[data-prev-for="${projectId}"]`);
+			const nextBtn = container.querySelector<HTMLButtonElement>(`[data-next-for="${projectId}"]`);
+			const dots = container.querySelectorAll<HTMLButtonElement>(`[data-dot-for="${projectId}"]`);
+			const slides = container.querySelectorAll<HTMLElement>('.carousel-slide');
+
+			if (!track || slides.length <= 1) return;
+
+			const updateActiveDot = () => {
+				const scrollLeft = track.scrollLeft;
+				const slideWidth = track.clientWidth;
+				const activeIndex = Math.round(scrollLeft / slideWidth);
+
+				dots.forEach((dot, idx) => {
+					if (idx === activeIndex) {
+						dot.classList.add('w-3.5', 'bg-[var(--accent)]');
+						dot.classList.remove('w-1.5', 'bg-white/50');
+					} else {
+						dot.classList.remove('w-3.5', 'bg-[var(--accent)]');
+						dot.classList.add('w-1.5', 'bg-white/50');
+					}
+				});
+			};
+
+			track.addEventListener('scroll', updateActiveDot, { passive: true });
+
+			prevBtn?.addEventListener('click', (e) => {
+				e.stopPropagation();
+				const slideWidth = track.clientWidth;
+				track.scrollBy({ left: -slideWidth, behavior: 'smooth' });
+			});
+
+			nextBtn?.addEventListener('click', (e) => {
+				e.stopPropagation();
+				const slideWidth = track.clientWidth;
+				track.scrollBy({ left: slideWidth, behavior: 'smooth' });
+			});
+
+			dots.forEach((dot) => {
+				dot.addEventListener('click', (e) => {
+					e.stopPropagation();
+					const idx = Number(dot.dataset.dotIndex || '0');
+					const slideWidth = track.clientWidth;
+					track.scrollTo({ left: idx * slideWidth, behavior: 'smooth' });
+				});
+			});
+		});
+
+		// 3. Setup Lightbox
+		const lightbox = document.getElementById('project-lightbox');
+		const lightboxImg = document.getElementById('lightbox-img') as HTMLImageElement | null;
+		const lightboxTitle = document.getElementById('lightbox-title');
+		const lightboxCounter = document.getElementById('lightbox-counter');
+		const lightboxCaption = document.getElementById('lightbox-caption');
+		const lightboxClose = document.getElementById('lightbox-close');
+		const lightboxPrev = document.getElementById('lightbox-prev') as HTMLButtonElement | null;
+		const lightboxNext = document.getElementById('lightbox-next') as HTMLButtonElement | null;
+
+		if (!lightbox || !lightboxImg) return;
+
+		let currentProjectSlides: HTMLElement[] = [];
+		let currentLightboxIndex = 0;
+
+		const renderLightboxSlide = (index: number) => {
+			if (index < 0 || index >= currentProjectSlides.length) return;
+			currentLightboxIndex = index;
+			const slide = currentProjectSlides[index];
+
+			const src = slide.dataset.imageSrc || '';
+			const alt = slide.dataset.imageAlt || '';
+			const caption = slide.dataset.imageCaption || '';
+			const projectTitle = slide.dataset.projectTitle || '';
+
+			lightboxImg.src = src;
+			lightboxImg.alt = alt;
+			if (lightboxTitle) lightboxTitle.textContent = projectTitle;
+			if (lightboxCaption) lightboxCaption.textContent = caption;
+			if (lightboxCounter) {
+				lightboxCounter.textContent = currentProjectSlides.length > 1 
+					? `Image ${index + 1} of ${currentProjectSlides.length}` 
+					: '';
+			}
+
+			if (lightboxPrev && lightboxNext) {
+				const hasMultiple = currentProjectSlides.length > 1;
+				lightboxPrev.style.display = hasMultiple ? 'flex' : 'none';
+				lightboxNext.style.display = hasMultiple ? 'flex' : 'none';
+			}
+		};
+
+		const openLightbox = (slides: HTMLElement[], startIndex: number) => {
+			currentProjectSlides = slides;
+			renderLightboxSlide(startIndex);
+
+			lightbox.classList.remove('hidden');
+			lightbox.classList.add('flex');
+			void lightbox.offsetWidth;
+			lightbox.classList.remove('opacity-0');
+			lightbox.classList.add('opacity-100');
+			lightbox.setAttribute('aria-hidden', 'false');
+			document.body.style.overflow = 'hidden';
+		};
+
+		const closeLightbox = () => {
+			lightbox.classList.add('opacity-0');
+			lightbox.classList.remove('opacity-100');
+			lightbox.setAttribute('aria-hidden', 'true');
+			setTimeout(() => {
+				lightbox.classList.add('hidden');
+				lightbox.classList.remove('flex');
+				lightboxImg.src = '';
+				document.body.style.overflow = '';
+			}, 300);
+		};
+
+		// Click on slide / carousel container to open lightbox
+		document.querySelectorAll<HTMLElement>('[data-carousel-container]').forEach((container) => {
+			container.addEventListener('click', (e) => {
+				// Avoid triggering if clicking on prev/next/dot buttons
+				if ((e.target as HTMLElement).closest('.carousel-prev, .carousel-next, .carousel-dot')) {
+					return;
+				}
+				const slides = Array.from(container.querySelectorAll<HTMLElement>('.carousel-slide'));
+				const track = container.querySelector<HTMLElement>('.carousel-track');
+				let activeIndex = 0;
+				if (track) {
+					activeIndex = Math.round(track.scrollLeft / track.clientWidth);
+				}
+				openLightbox(slides, Math.max(0, activeIndex));
+			});
+		});
+
+		lightboxClose?.addEventListener('click', closeLightbox);
+
+		lightbox?.addEventListener('click', (e) => {
+			if (e.target === lightbox || (e.target as HTMLElement).classList.contains('backdrop-blur-md')) {
+				closeLightbox();
+			}
+		});
+
+		lightboxPrev?.addEventListener('click', (e) => {
+			e.stopPropagation();
+			const newIndex = (currentLightboxIndex - 1 + currentProjectSlides.length) % currentProjectSlides.length;
+			renderLightboxSlide(newIndex);
+		});
+
+		lightboxNext?.addEventListener('click', (e) => {
+			e.stopPropagation();
+			const newIndex = (currentLightboxIndex + 1) % currentProjectSlides.length;
+			renderLightboxSlide(newIndex);
+		});
+
+		document.addEventListener('keydown', (e) => {
+			if (lightbox.classList.contains('hidden')) return;
+
+			if (e.key === 'Escape') {
+				closeLightbox();
+			} else if (e.key === 'ArrowLeft' && currentProjectSlides.length > 1) {
+				const newIndex = (currentLightboxIndex - 1 + currentProjectSlides.length) % currentProjectSlides.length;
+				renderLightboxSlide(newIndex);
+			} else if (e.key === 'ArrowRight' && currentProjectSlides.length > 1) {
+				const newIndex = (currentLightboxIndex + 1) % currentProjectSlides.length;
+				renderLightboxSlide(newIndex);
+			}
+		});
+	}
+
+	setupCompactDeckAndCarousels();
+	document.addEventListener('astro:page-load', setupCompactDeckAndCarousels);
+</script>
