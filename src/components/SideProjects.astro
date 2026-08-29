@@ -2,33 +2,32 @@
 interface SideProject {
 	title: string;
 	description: string;
-	repoUrl?: string;
-	demoUrl?: string;
-	image?: string;
+	repoUrl: string;
+	image: string;
 	tags: string[];
-	featured?: boolean;
 }
 
 const projects: SideProject[] = [
 	{
-		title: "ISO 8583 Message Parser & Simulator",
-		description: "A lightweight, high-performance Go toolkit to parse, pack, and simulate ISO 8583 financial transaction packets with custom bitmap specs.",
-		repoUrl: "https://github.com/hoirilm",
-		tags: ["Golang", "ISO 8583", "CLI"],
-		featured: true
+		title: "Klakoan Time Tracker",
+		description: "Modern productivity & time tracking web application with real-time parallel multitasking timers, biometric Passkeys (WebAuthn), and automated Excel report generation.",
+		repoUrl: "https://github.com/hoirilm/activity-tracker",
+		image: "/projects/activity-tracker.jpg",
+		tags: ["Laravel 13", "Livewire 4", "Passkeys (WebAuthn)", "Tailwind CSS v4", "Flux UI"]
 	},
 	{
-		title: "AI Banking Middleware Copilot",
-		description: "Experimenting with LLM agents to inspect bank switching logs, automate anomaly detection, and explain transaction error codes.",
-		repoUrl: "https://github.com/hoirilm",
-		tags: ["Python", "LLM", "Middleware"],
-		featured: true
+		title: "DevCalc",
+		description: "Software quotation estimator & sales CRM pipeline platform with dynamic complexity multipliers (1.0x–3.5x), multi-tier billing schemes, and automated official PDF generation.",
+		repoUrl: "https://github.com/hoirilm/devcalc",
+		image: "/projects/devcalc.jpg",
+		tags: ["Laravel 13", "Inertia.js v2", "Vue 3", "Tailwind CSS v4", "DomPDF"]
 	},
 	{
-		title: "Fintech Mock Gateway",
-		description: "A mock server simulating QRIS, BI-FAST, and multi-biller callback endpoints for rapid local development and automated CI testing.",
-		repoUrl: "https://github.com/hoirilm",
-		tags: ["Go", "Docker", "REST API"]
+		title: "E-Sign Lab Report Generator",
+		description: "Electronic medical lab report generator featuring cryptographic digital signatures, automated dynamic PDF generation, and public tamper-proof QR code verification.",
+		repoUrl: "https://github.com/hoirilm/esign",
+		image: "/projects/esign.jpg",
+		tags: ["Laravel 13", "Livewire", "QR Verification", "DomPDF", "Tailwind CSS"]
 	}
 ];
 ---
@@ -43,58 +42,54 @@ const projects: SideProject[] = [
 			<h2 class="text-xl sm:text-2xl font-bold tracking-tight">Side Projects &amp; Explorations</h2>
 		</div>
 		<p class="text-xs sm:text-sm text-[var(--muted)]">
-			Tools, experiments, and open-source explorations outside my core banking work
+			Open-source applications, tools, and SaaS experiments built outside my banking integrations
 		</p>
 	</div>
 
-	<!-- Projects Grid -->
+	<!-- Projects Grid with 16:9 Landscape Preview Images -->
 	<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
 		{projects.map((project) => (
-			<div class="squircle bg-[var(--surface)] border border-[var(--border)] p-5 flex flex-col justify-between gap-4 hover:border-[var(--accent)]/50 hover:shadow-md transition-all duration-200 group">
-				<div class="flex flex-col gap-3">
-					<!-- Header: Icons / Links -->
-					<div class="flex items-center justify-between">
-						<div class="p-2 rounded-xl bg-[var(--pill-bg)] text-[var(--accent)]">
-							<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-								<path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/>
-							</svg>
-						</div>
+			<a 
+				href={project.repoUrl} 
+				target="_blank" 
+				rel="noopener noreferrer" 
+				class="squircle bg-[var(--surface)] border border-[var(--border)] p-4 flex flex-col justify-between gap-3.5 overflow-hidden transition-all duration-300 hover:border-[var(--accent)]/50 hover:shadow-lg active:scale-98 group cursor-pointer"
+			>
+				<!-- 16:9 Landscape Image Container -->
+				<div class="relative w-full aspect-video rounded-xl overflow-hidden bg-[var(--pill-bg)] border border-[var(--border)]">
+					<img 
+						src={project.image} 
+						alt={project.title} 
+						loading="lazy" 
+						class="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+					/>
+				</div>
 
-						{project.repoUrl && (
-							<a 
-								href={project.repoUrl} 
-								target="_blank" 
-								rel="noopener noreferrer" 
-								aria-label={`View ${project.title} on GitHub`}
-								class="text-[var(--muted)] hover:text-[var(--fg)] p-1.5 rounded-lg hover:bg-[var(--surface-hover)] transition-colors"
-							>
-								<svg class="size-4" viewBox="0 0 24 24" fill="currentColor">
-									<path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
-								</svg>
-							</a>
-						)}
-					</div>
-
-					<!-- Content -->
-					<div class="flex flex-col gap-1.5">
+				<!-- Content -->
+				<div class="flex flex-col gap-1.5 flex-grow">
+					<div class="flex items-center justify-between gap-2">
 						<h3 class="text-sm sm:text-base font-semibold text-[var(--fg)] group-hover:text-[var(--accent)] transition-colors">
 							{project.title}
 						</h3>
-						<p class="text-xs text-[var(--muted)] leading-relaxed line-clamp-3">
-							{project.description}
-						</p>
+						<svg class="size-4 text-[var(--muted)] group-hover:text-[var(--fg)] shrink-0 transition-colors" viewBox="0 0 24 24" fill="currentColor">
+							<path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+						</svg>
 					</div>
+
+					<p class="text-xs text-[var(--muted)] leading-[1.6] line-clamp-2">
+						{project.description}
+					</p>
 				</div>
 
-				<!-- Tags & Link -->
-				<div class="flex flex-wrap gap-1.5 pt-2 border-t border-[var(--border-subtle)]">
+				<!-- Tag Badges -->
+				<div class="flex flex-wrap items-center gap-1.5 pt-2 border-t border-[var(--border)]">
 					{project.tags.map((tag) => (
 						<span class="text-[10px] font-mono text-[var(--muted)] px-2 py-0.5 rounded bg-[var(--pill-bg)]">
 							{tag}
 						</span>
 					))}
 				</div>
-			</div>
+			</a>
 		))}
 
 		<!-- See More Card -->
@@ -102,18 +97,18 @@ const projects: SideProject[] = [
 			href="https://github.com/hoirilm" 
 			target="_blank" 
 			rel="noopener noreferrer" 
-			class="squircle border border-dashed border-[var(--border)] p-5 flex flex-col items-center justify-center text-center gap-2 hover:bg-[var(--surface-hover)] hover:border-[var(--accent)] transition-all duration-200 group"
+			class="squircle border border-dashed border-[var(--border)] p-4 flex flex-col items-center justify-center text-center gap-3 hover:bg-[var(--surface-hover)] hover:border-[var(--accent)] transition-all duration-300 group cursor-pointer"
 		>
-			<div class="p-3 rounded-full bg-[var(--surface)] text-[var(--muted)] group-hover:text-[var(--fg)] group-hover:scale-110 transition-all">
+			<div class="p-4 rounded-full bg-[var(--surface)] border border-[var(--border)] text-[var(--muted)] group-hover:text-[var(--fg)] group-hover:scale-110 transition-all shadow-sm">
 				<svg class="size-6" viewBox="0 0 24 24" fill="currentColor">
 					<path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
 				</svg>
 			</div>
-			<div class="flex flex-col">
-				<span class="text-xs sm:text-sm font-semibold text-[var(--fg)] group-hover:text-[var(--accent)] transition-colors">
+			<div class="flex flex-col gap-0.5">
+				<span class="text-sm font-semibold text-[var(--fg)] group-hover:text-[var(--accent)] transition-colors">
 					Explore all on GitHub
 				</span>
-				<span class="text-[11px] text-[var(--muted)]">
+				<span class="text-xs text-[var(--muted)]">
 					@hoirilm &bull; Public Repositories
 				</span>
 			</div>
