@@ -1,162 +1,97 @@
 ---
+interface IntegrationItem {
+	title: string;
+	category: string;
+	description: string;
+	tags: string[];
+}
+
+const integrations: IntegrationItem[] = [
+	{
+		title: "Bank Artha Graha, Bank Ganesha, Bank SBI Indonesia",
+		category: "Enterprise Core Banking",
+		description: "High-availability transaction routing and middleware microservices connecting core banking engines with BI-FAST, QRIS, billers, and online customer onboarding.",
+		tags: ["Core Banking", "BI-FAST", "QRIS", "Microservices"]
+	},
+	{
+		title: "Artajasa, Rintis (Prima), Alto",
+		category: "National Switching Networks",
+		description: "Direct ISO 8583 protocol integration for real-time interbank fund transfers, debit switching, and cross-bank settlements.",
+		tags: ["ISO 8583", "Interbank Transfer", "Switching"]
+	},
+	{
+		title: "Bank J-Trust & BI-FAST Controller",
+		category: "Fast Payment Settlement",
+		description: "Engineered secure, low-latency fast-payment pipelines connecting internal bank networks to Bank Indonesia's BI-FAST Controller.",
+		tags: ["BI-FAST Controller", "High Availability"]
+	},
+	{
+		title: "PAC, SYB, Jatelindo (Multi-Biller & e-Money)",
+		category: "Payment Aggregators",
+		description: "Multi-biller payment gateways and contactless e-Money top-up pipelines for BCA Flazz and BNI TapCash.",
+		tags: ["Biller APIs", "e-Money", "Contactless"]
+	},
+	{
+		title: "QRIS Multi-Mode Gateway Engine",
+		category: "National Payment Standard",
+		description: "End-to-end QRIS payment engine supporting MPM, CPM, Cross-Border transactions, QRIS TUNTAS, and NFC.",
+		tags: ["QRIS MPM/CPM", "Cross-Border", "NFC"]
+	},
+	{
+		title: "APJ & Digital Lending Platforms",
+		category: "Automated Credit Screening",
+		description: "Real-time borrower background verification and automated credit risk screening for digital loan origination systems (LOS).",
+		tags: ["Credit Screening", "LOS", "Loan APIs"]
+	},
+	{
+		title: "Bank Bangladesh (Overseas Client)",
+		category: "Agent Banking & Workflows",
+		description: "Agent banking (Lakupandai) workflow automation and international financial microservices integration.",
+		tags: ["Lakupandai", "Agent Banking"]
+	}
+];
 ---
 
-<section id="projects" class="py-24 relative">
-	<div class="reveal mb-12 flex items-center gap-4">
-		<h2 class="text-2xl md:text-3xl font-bold text-white">
-			<span class="text-emerald-400 font-mono text-xl mr-2">04.</span> Key Integrations
-		</h2>
-		<div class="h-px bg-zinc-800 flex-grow max-w-xs"></div>
+<section id="integrations" class="w-full flex flex-col gap-6 scroll-mt-24">
+	<!-- Section Header -->
+	<div class="flex flex-col gap-1">
+		<div class="flex items-center gap-2 text-[var(--fg)]">
+			<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[var(--accent)]">
+				<path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+			</svg>
+			<h2 class="text-xl sm:text-2xl font-bold tracking-tight">Key Banking Integrations</h2>
+		</div>
+		<p class="text-xs sm:text-sm text-[var(--muted)]">
+			Mission-critical financial infrastructure and enterprise integrations delivered
+		</p>
 	</div>
 
-	<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 reveal">
-		<!-- Integration 1 -->
-		<div class="glass-card rounded-xl p-6 group relative overflow-hidden transition-all duration-300 hover:-translate-y-1 flex flex-col h-full border border-zinc-800/50 hover:border-emerald-500/30">
-			<div class="mb-8 relative z-20">
-				<h3 class="text-lg font-bold text-white group-hover:text-emerald-400 transition-colors mb-1">
-					Bank Artha Graha
-				</h3>
-				<span class="text-zinc-400 text-sm font-medium">
-					Enterprise Core Banking
-				</span>
-			</div>
-			<div class="flex flex-wrap gap-2 mt-auto relative z-20">
-				<span class="text-[11px] font-mono text-zinc-300 px-2 py-1 bg-zinc-800/50 rounded border border-zinc-700/50">Micro Srvices</span>
-				<span class="text-[11px] font-mono text-zinc-300 px-2 py-1 bg-zinc-800/50 rounded border border-zinc-700/50">Biller</span>
-				<span class="text-[11px] font-mono text-zinc-300 px-2 py-1 bg-zinc-800/50 rounded border border-zinc-700/50">Bifast</span>
-				<span class="text-[11px] font-mono text-zinc-300 px-2 py-1 bg-zinc-800/50 rounded border border-zinc-700/50">Online On Boarding</span>
-				<span class="text-[11px] font-mono text-zinc-300 px-2 py-1 bg-zinc-800/50 rounded border border-zinc-700/50">QRIS</span>
-			</div>
-		</div>
+	<!-- Refined Dense List -->
+	<div class="flex flex-col divide-y divide-[var(--border)] border-y border-[var(--border)]">
+		{integrations.map((item) => (
+			<div class="py-3.5 flex flex-col gap-1.5 group hover:bg-[var(--surface-hover)] -mx-3 px-3 rounded-xl transition-colors">
+				<div class="flex items-baseline justify-between gap-2 flex-wrap">
+					<h3 class="text-sm sm:text-base font-semibold text-[var(--fg)] group-hover:text-[var(--accent)] transition-colors">
+						{item.title}
+					</h3>
+					<span class="text-xs text-[var(--muted)] font-normal">
+						{item.category}
+					</span>
+				</div>
 
-		<!-- Integration 2 -->
-		<div class="glass-card rounded-xl p-6 group relative overflow-hidden transition-all duration-300 hover:-translate-y-1 flex flex-col h-full border border-zinc-800/50 hover:border-emerald-500/30">
-			<div class="mb-8 relative z-20">
-				<h3 class="text-lg font-bold text-white group-hover:text-emerald-400 transition-colors mb-1">
-					Bank Ganesha
-				</h3>
-				<span class="text-zinc-400 text-sm font-medium">
-					Enterprise Core Banking
-				</span>
-			</div>
-			<div class="flex flex-wrap gap-2 mt-auto relative z-20">
-				<span class="text-[11px] font-mono text-zinc-300 px-2 py-1 bg-zinc-800/50 rounded border border-zinc-700/50">Micro Srvices</span>
-				<span class="text-[11px] font-mono text-zinc-300 px-2 py-1 bg-zinc-800/50 rounded border border-zinc-700/50">Biller</span>
-				<span class="text-[11px] font-mono text-zinc-300 px-2 py-1 bg-zinc-800/50 rounded border border-zinc-700/50">Bifast</span>
-				<span class="text-[11px] font-mono text-zinc-300 px-2 py-1 bg-zinc-800/50 rounded border border-zinc-700/50">Online On Boarding</span>
-				<span class="text-[11px] font-mono text-zinc-300 px-2 py-1 bg-zinc-800/50 rounded border border-zinc-700/50">QRIS</span>
-			</div>
-		</div>
+				<p class="text-xs sm:text-sm text-[var(--muted)] leading-[1.7]">
+					{item.description}
+				</p>
 
-		<!-- Integration 3 -->
-		<div class="glass-card rounded-xl p-6 group relative overflow-hidden transition-all duration-300 hover:-translate-y-1 flex flex-col h-full border border-zinc-800/50 hover:border-emerald-500/30">
-			<div class="mb-8 relative z-20">
-				<h3 class="text-lg font-bold text-white group-hover:text-emerald-400 transition-colors mb-1">
-					Bank SBI Indonesia
-				</h3>
-				<span class="text-zinc-400 text-sm font-medium">
-					Enterprise Core Banking
-				</span>
+				<!-- Compact Clean Tags -->
+				<div class="flex flex-wrap gap-1.5 pt-1">
+					{item.tags.map((tag) => (
+						<span class="text-[11px] font-mono text-[var(--muted)] px-2 py-0.5 rounded-md bg-[var(--pill-bg)] border border-[var(--border)]">
+							{tag}
+						</span>
+					))}
+				</div>
 			</div>
-			<div class="flex flex-wrap gap-2 mt-auto relative z-20">
-				<span class="text-[11px] font-mono text-zinc-300 px-2 py-1 bg-zinc-800/50 rounded border border-zinc-700/50">Micro Srvices</span>
-				<span class="text-[11px] font-mono text-zinc-300 px-2 py-1 bg-zinc-800/50 rounded border border-zinc-700/50">Biller</span>
-				<span class="text-[11px] font-mono text-zinc-300 px-2 py-1 bg-zinc-800/50 rounded border border-zinc-700/50">Bifast</span>
-				<span class="text-[11px] font-mono text-zinc-300 px-2 py-1 bg-zinc-800/50 rounded border border-zinc-700/50">Online On Boarding</span>
-				<span class="text-[11px] font-mono text-zinc-300 px-2 py-1 bg-zinc-800/50 rounded border border-zinc-700/50">QRIS</span>
-			</div>
-		</div>
-
-		<!-- Integration 4 -->
-		<div class="glass-card rounded-xl p-6 group relative overflow-hidden transition-all duration-300 hover:-translate-y-1 flex flex-col h-full border border-zinc-800/50 hover:border-emerald-500/30">
-			<div class="mb-8 relative z-20">
-				<h3 class="text-lg font-bold text-white group-hover:text-emerald-400 transition-colors mb-1">
-					Bank Bangladesh
-				</h3>
-				<span class="text-zinc-400 text-sm font-medium">
-					Overseas Client Integration
-				</span>
-			</div>
-			<div class="flex flex-wrap gap-2 mt-auto relative z-20">
-				<span class="text-[11px] font-mono text-zinc-300 px-2 py-1 bg-zinc-800/50 rounded border border-zinc-700/50">Biller</span>
-				<span class="text-[11px] font-mono text-zinc-300 px-2 py-1 bg-zinc-800/50 rounded border border-zinc-700/50">Lakupandai</span>
-				<span class="text-[11px] font-mono text-zinc-300 px-2 py-1 bg-zinc-800/50 rounded border border-zinc-700/50">Micro Services</span>
-			</div>
-		</div>
-
-		<!-- Integration 5 -->
-		<div class="glass-card rounded-xl p-6 group relative overflow-hidden transition-all duration-300 hover:-translate-y-1 flex flex-col h-full border border-zinc-800/50 hover:border-emerald-500/30">
-			<div class="mb-8 relative z-20">
-				<h3 class="text-lg font-bold text-white group-hover:text-emerald-400 transition-colors mb-1">
-					Bank J-Trust
-				</h3>
-				<span class="text-zinc-400 text-sm font-medium">
-					Enterprise Core Banking
-				</span>
-			</div>
-			<div class="flex flex-wrap gap-2 mt-auto relative z-20">
-				<span class="text-[11px] font-mono text-zinc-300 px-2 py-1 bg-zinc-800/50 rounded border border-zinc-700/50">BI-FAST</span>
-			</div>
-		</div>
-
-		<!-- Integration 6 -->
-		<div class="glass-card rounded-xl p-6 group relative overflow-hidden transition-all duration-300 hover:-translate-y-1 flex flex-col h-full border border-zinc-800/50 hover:border-emerald-500/30">
-			<div class="mb-8 relative z-20">
-				<h3 class="text-lg font-bold text-white group-hover:text-emerald-400 transition-colors mb-1">
-					Artajasa, Rintis, Alto
-				</h3>
-				<span class="text-zinc-400 text-sm font-medium">
-					National Switching Networks
-				</span>
-			</div>
-			<div class="flex flex-wrap gap-2 mt-auto relative z-20">
-				<span class="text-[11px] font-mono text-zinc-300 px-2 py-1 bg-zinc-800/50 rounded border border-zinc-700/50">Online Transfer</span>
-				<span class="text-[11px] font-mono text-zinc-300 px-2 py-1 bg-zinc-800/50 rounded border border-zinc-700/50">B2B Integrations</span>
-			</div>
-		</div>
-
-		<!-- Integration 7 -->
-		<div class="glass-card rounded-xl p-6 group relative overflow-hidden transition-all duration-300 hover:-translate-y-1 flex flex-col h-full border border-zinc-800/50 hover:border-emerald-500/30">
-			<div class="mb-8 relative z-20">
-				<h3 class="text-lg font-bold text-white group-hover:text-emerald-400 transition-colors mb-1">
-					PAC, SYB, Jatelindo
-				</h3>
-				<span class="text-zinc-400 text-sm font-medium">
-					Biller & E-Money Aggregators
-				</span>
-			</div>
-			<div class="flex flex-wrap gap-2 mt-auto relative z-20">
-				<span class="text-[11px] font-mono text-zinc-300 px-2 py-1 bg-zinc-800/50 rounded border border-zinc-700/50">Biller APIs</span>
-				<span class="text-[11px] font-mono text-zinc-300 px-2 py-1 bg-zinc-800/50 rounded border border-zinc-700/50">Aggregator</span>
-			</div>
-		</div>
-		
-		<!-- Integration 8 -->
-		<div class="glass-card rounded-xl p-6 group relative overflow-hidden transition-all duration-300 hover:-translate-y-1 flex flex-col h-full border border-zinc-800/50 hover:border-emerald-500/30">
-			<div class="mb-8 relative z-20">
-				<h3 class="text-lg font-bold text-white group-hover:text-emerald-400 transition-colors mb-1">
-					QRIS Multi-mode
-				</h3>
-				<span class="text-zinc-400 text-sm font-medium">
-					Payment Capabilities
-				</span>
-			</div>
-			<div class="flex flex-wrap gap-2 mt-auto relative z-20">
-				<span class="text-[11px] font-mono text-zinc-300 px-2 py-1 bg-zinc-800/50 rounded border border-zinc-700/50">MPM/CPM</span>
-				<span class="text-[11px] font-mono text-zinc-300 px-2 py-1 bg-zinc-800/50 rounded border border-zinc-700/50">TUNTAS</span>
-			</div>
-		</div>
-		
-		<!-- Integration 9 -->
-		<div class="glass-card rounded-xl p-6 group relative overflow-hidden transition-all duration-300 flex flex-col h-full items-center justify-center border border-dashed border-zinc-700/50 bg-transparent hover:bg-zinc-900/30">
-			<div class="text-center relative z-20 mt-2">
-				<h3 class="text-zinc-400 font-medium mb-1">
-					And many more...
-				</h3>
-				<span class="text-emerald-400/70 text-xs font-mono">
-					Internal & External Channels
-				</span>
-			</div>
-		</div>
+		))}
 	</div>
 </section>

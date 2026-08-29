@@ -1,14 +1,14 @@
 ---
 ---
 
-<footer
-	class="py-8 text-center text-zinc-500 font-mono text-sm border-t border-zinc-900 mt-20"
->
-	<p
-		class="mb-2 hover:text-emerald-400 transition-colors cursor-default"
-	>
-		Built with <i class="fas fa-terminal text-emerald-400 mx-1"></i> &
-		AI
-	</p>
-	<p>&copy; 2026 Hoiril Mochtar.</p>
+<footer class="w-full flex flex-col items-center justify-between gap-4 pt-12 text-center text-xs font-mono text-[var(--muted)]">
+	<div class="flex items-center gap-2">
+		<span class="inline-block size-2 rounded-full bg-emerald-500 animate-pulse"></span>
+		<span>Madura, Indonesia (UTC+7)</span>
+	</div>
+	
+	<div class="flex flex-col gap-1">
+		<p>&copy; {new Date().getFullYear()} Hoiril Mochtar. All rights reserved.</p>
+		<p class="text-[11px] text-[var(--muted)]/80">Built with Astro &bull; Designed for performance</p>
+	</div>
 </footer>

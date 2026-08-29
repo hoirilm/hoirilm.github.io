@@ -1,172 +1,120 @@
 ---
 ---
 
-<section id="about" class="min-h-screen flex items-center pt-20">
-	<div
-		class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center w-full"
-	>
-		<!-- Text Content -->
-		<div class="lg:col-span-7 reveal order-2 lg:order-1">
-			<p
-				class="text-emerald-400 font-mono text-sm tracking-widest mb-4"
-			>
-				SYSTEM_INIT // HELLO_WORLD
-			</p>
-			<h1
-				class="text-5xl md:text-6xl font-bold text-white mb-4 tracking-tight"
-			>
-				Hoiril Mochtar.
-			</h1>
+<section id="hero" class="w-full flex flex-col gap-6 pt-4 sm:pt-8">
+	<!-- Heading -->
+	<div class="pt-2">
+		<h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-[var(--fg)] group cursor-default">
+			<span class="inline-block transition-all duration-300 ease-in-out group-hover:text-[var(--muted)]">I'm </span>
+			<span class="inline-block transition-all duration-300 ease-in-out group-hover:translate-x-0.5">Hoiril Mochtar.</span>
+		</h1>
+	</div>
 
-			<!-- Typewriter Container -->
-			<div class="h-10 mb-6">
-				<h2
-					class="text-2xl md:text-3xl font-semibold text-zinc-400"
-				>
-					<span id="typewriter-text"></span><span
-						class="cursor-blink text-emerald-400"
-						>_</span
-					>
-				</h2>
-			</div>
+	<!-- Narrative Bio with Refined Typography -->
+	<div class="flex flex-col gap-4 text-[15px] sm:text-base leading-[1.75] text-[var(--muted)]">
+		<p>
+			👋 Hello! I'm a <strong class="text-[var(--fg)] font-semibold">Senior Middleware &amp; Backend Engineer</strong> with over 6 years of experience, specialized in high-availability transaction routing, ISO 8583 protocols, and enterprise core banking integrations. Based in <strong class="text-[var(--fg)] font-semibold">Jakarta, Indonesia 🇮🇩</strong>, I'm <strong class="text-[var(--fg)] font-semibold">open to collaboration &amp; remote work</strong>.
+		</p>
+		<p>
+			I engineer mission-critical middleware systems that seamlessly connect <strong class="text-[var(--fg)] font-semibold">mobile banking, ATM networks, national switching (Artajasa, Prima, Alto), BI-FAST, QRIS</strong>, and Tier-1 core banking platforms.
+		</p>
+	</div>
 
-			<p
-				class="text-zinc-400 leading-relaxed mb-8 max-w-xl text-lg"
-			>
-				I build reliable middleware systems that connect mobile platforms, backend services, and third-party APIs. Currently focused on developing high-availability transaction routing for Tier-1 banks in Indonesia, while exploring <span class="text-emerald-400">Artificial Intelligence</span> for enterprise solutions.
-			</p>
-
-			<!-- Metrics -->
-			<div
-				class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-10 border-y border-zinc-800 py-6"
-			>
-				<div>
-					<p class="text-3xl font-bold text-white mb-1">
-						10+
-					</p>
-					<p
-						class="text-xs font-mono text-zinc-500 uppercase tracking-wider"
-					>
-						Bank Integrations
-					</p>
-				</div>
-				<div>
-					<p class="text-3xl font-bold text-white mb-1">
-						50+
-					</p>
-					<p
-						class="text-xs font-mono text-zinc-500 uppercase tracking-wider"
-					>
-						Features Deployed
-					</p>
-				</div>
-				<div class="hidden md:block">
-					<p class="text-3xl font-bold text-white mb-1">
-						6+
-					</p>
-					<p
-						class="text-xs font-mono text-zinc-500 uppercase tracking-wider"
-					>
-						Years Exp.
-					</p>
-				</div>
-			</div>
-
-			<div class="flex flex-wrap gap-4 font-mono text-sm">
-				<a
-					href="https://github.com/hoirilm/hoirilm.github.io"
-					target="_blank"
-					class="px-6 py-3 bg-emerald-500 text-zinc-950 font-bold rounded hover:bg-emerald-400 transition-colors"
-				>
-					View Source
-				</a>
-				<a
-					href="https://linkedin.com/in/hoiril-mochtar-8549a614a/"
-					target="_blank"
-					class="px-6 py-3 border border-zinc-700 text-zinc-300 rounded hover:border-emerald-400 hover:text-emerald-400 transition-colors flex items-center gap-2"
-				>
-					<i class="fab fa-linkedin text-lg"></i> LinkedIn
-				</a>
-			</div>
-		</div>
-
-		<!-- Image -->
-		<div
-			class="lg:col-span-5 reveal order-1 lg:order-2 flex justify-center lg:justify-end"
+	<!-- Action Controls & Social Links -->
+	<div class="flex flex-wrap items-center gap-3 pt-2">
+		<!-- Copy Email Button -->
+		<button 
+			id="copy-email-btn" 
+			type="button" 
+			data-email="hoiril.mochtar@gmail.com" 
+			class="squircle bg-[var(--fg)] text-[var(--bg)] hover:opacity-90 active:scale-95 transition-all duration-200 px-4 py-2 text-xs sm:text-sm font-medium flex items-center gap-2 cursor-pointer shadow-sm"
 		>
-			<div class="relative group">
-				<div
-					class="absolute -inset-1 bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-lg blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"
+			<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+				<rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>
+			</svg>
+			<span id="copy-text">Copy my email</span>
+		</button>
+
+		<!-- Social Icon Links with Tooltip -->
+		<div class="flex items-center gap-1">
+			<!-- GitHub -->
+			<div class="tooltip-trigger">
+				<a 
+					href="https://github.com/hoirilm" 
+					target="_blank" 
+					rel="noopener noreferrer" 
+					aria-label="GitHub Profile"
+					class="p-2 text-[var(--muted)] hover:text-[var(--fg)] hover:bg-[var(--surface-hover)] rounded-xl transition-all duration-200 flex items-center justify-center"
 				>
-				</div>
-				<div
-					class="relative w-64 h-64 md:w-80 md:h-80 rounded-lg overflow-hidden border border-zinc-800 transform transition-transform duration-500 group-hover:-translate-y-2 group-hover:translate-x-2"
+					<svg class="size-5" viewBox="0 0 24 24" fill="currentColor">
+						<path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+					</svg>
+				</a>
+				<span class="tooltip squircle absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2.5 py-1 text-[11px] bg-[var(--fg)] text-[var(--bg)] whitespace-nowrap shadow-md pointer-events-none z-30">
+					GitHub / hoirilm
+				</span>
+			</div>
+
+			<!-- LinkedIn -->
+			<div class="tooltip-trigger">
+				<a 
+					href="https://linkedin.com/in/hoiril-mochtar-8549a614a/" 
+					target="_blank" 
+					rel="noopener noreferrer" 
+					aria-label="LinkedIn Profile"
+					class="p-2 text-[var(--muted)] hover:text-[#0a66c2] hover:bg-[var(--surface-hover)] rounded-xl transition-all duration-200 flex items-center justify-center"
 				>
-					<div
-						class="absolute inset-0 bg-emerald-500/10 mix-blend-overlay z-10"
-					>
-					</div>
-					<!-- Image placed here with object-top to frame the face properly -->
-					<img
-						src="profile.jpeg"
-						alt="Hoiril Mochtar"
-						class="w-full h-full object-cover object-top grayscale hover:grayscale-0 transition-all duration-500"
-					/>
-				</div>
+					<svg class="size-5" viewBox="0 0 24 24" fill="currentColor">
+						<path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+					</svg>
+				</a>
+				<span class="tooltip squircle absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2.5 py-1 text-[11px] bg-[var(--fg)] text-[var(--bg)] whitespace-nowrap shadow-md pointer-events-none z-30">
+					LinkedIn / Hoiril Mochtar
+				</span>
+			</div>
+
+			<!-- Email direct link -->
+			<div class="tooltip-trigger">
+				<a 
+					href="mailto:hoiril.mochtar@gmail.com" 
+					aria-label="Direct Email"
+					class="p-2 text-[var(--muted)] hover:text-[var(--fg)] hover:bg-[var(--surface-hover)] rounded-xl transition-all duration-200 flex items-center justify-center"
+				>
+					<svg class="size-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+						<rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+					</svg>
+				</a>
+				<span class="tooltip squircle absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2.5 py-1 text-[11px] bg-[var(--fg)] text-[var(--bg)] whitespace-nowrap shadow-md pointer-events-none z-30">
+					hoiril.mochtar@gmail.com
+				</span>
 			</div>
 		</div>
 	</div>
 </section>
 
 <script>
-	// --- Multi-sentence Typewriter Effect for Hero Section ---
-	const phrases = [
-		"I architect enterprise middleware.",
-		"I integrate banking ecosystems.",
-		"I explore AI-driven solutions.",
-		"I build high-availability systems.",
-	];
+	const copyBtn = document.getElementById('copy-email-btn');
+	const copyText = document.getElementById('copy-text');
+	let copyTimeout: number | undefined;
 
-	const typeContainer = document.getElementById("typewriter-text");
-
-	let phraseIndex = 0;
-	let charIndex = 0;
-	let isDeleting = false;
-	let typingDelay = 100;
-	let erasingDelay = 50;
-	let newPhraseDelay = 2000; // Time to wait before deleting
-
-	function typeLoop() {
-		if (!typeContainer) return;
-
-		const currentPhrase = phrases[phraseIndex];
-		let delay = isDeleting ? erasingDelay : typingDelay;
-
-		if (isDeleting) {
-			// Erasing
-			typeContainer.textContent = currentPhrase.substring(0, charIndex - 1);
-			charIndex--;
-		} else {
-			// Typing
-			typeContainer.textContent = currentPhrase.substring(0, charIndex + 1);
-			charIndex++;
-		}
-
-		// Logic to switch modes
-		if (!isDeleting && charIndex === currentPhrase.length) {
-			// End of typing, wait then start deleting
-			isDeleting = true;
-			delay = newPhraseDelay;
-		} else if (isDeleting && charIndex === 0) {
-			// End of deleting, move to next phrase
-			isDeleting = false;
-			phraseIndex = (phraseIndex + 1) % phrases.length;
-			delay = typingDelay; // Optional: wait a bit before typing next phrase, but typingDelay is fine
-		}
-		
-		setTimeout(typeLoop, delay);
+	if (copyBtn && copyText) {
+		copyBtn.addEventListener('click', async () => {
+			const email = copyBtn.getAttribute('data-email');
+			if (email) {
+				try {
+					await navigator.clipboard.writeText(email);
+					copyText.textContent = "Email copied!";
+					copyBtn.classList.add('bg-emerald-600', 'text-white');
+					
+					window.clearTimeout(copyTimeout);
+					copyTimeout = window.setTimeout(() => {
+						copyText.textContent = "Copy my email";
+						copyBtn.classList.remove('bg-emerald-600', 'text-white');
+					}, 2500);
+				} catch (err) {
+					window.location.href = `mailto:${email}`;
+				}
+			}
+		});
 	}
-
-	// Start the hero typewriter slightly after the logo finishes
-	setTimeout(typeLoop, 2500);
 </script>

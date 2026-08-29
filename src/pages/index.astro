@@ -3,39 +3,38 @@ import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Hero from '../components/Hero.astro';
 import Experience from '../components/Experience.astro';
-import Skills from '../components/Skills.astro';
 import Projects from '../components/Projects.astro';
-import Contact from '../components/Contact.astro';
+import SideProjects from '../components/SideProjects.astro';
+import Skills from '../components/Skills.astro';
 import Footer from '../components/Footer.astro';
 ---
 
-<Layout title="Hoiril Mochtar | Enterprise Middleware Engineer">
+<Layout title="Hoiril Mochtar • Senior Middleware Engineer">
+	<!-- Floating Pill Header -->
 	<Navbar />
-	
-	<main class="max-w-6xl mx-auto px-6 lg:px-8">
+
+	<!-- Main Content Container (Max width 40rem / ~640px) -->
+	<main class="w-full max-w-[min(calc(100vw-3rem),40rem)] flex flex-col gap-10">
 		<Hero />
+		
+		<hr class="wave" aria-hidden="true" />
+		
 		<Experience />
-		<Skills />
+		
+		<hr class="wave" aria-hidden="true" />
+		
 		<Projects />
-		<Contact />
+		
+		<hr class="wave" aria-hidden="true" />
+		
+		<SideProjects />
+		
+		<hr class="wave" aria-hidden="true" />
+		
+		<Skills />
+		
+		<hr class="wave" aria-hidden="true" />
+		
+		<Footer />
 	</main>
-
-	<Footer />
 </Layout>
-
-<script>
-	// --- Scroll Reveal Animation ---
-	function reveal() {
-		const reveals = document.querySelectorAll(".reveal");
-		for (let i = 0; i < reveals.length; i++) {
-			const windowHeight = window.innerHeight;
-			const elementTop = reveals[i].getBoundingClientRect().top;
-			const elementVisible = 100;
-			if (elementTop < windowHeight - elementVisible) {
-				reveals[i].classList.add("active");
-			}
-		}
-	}
-	window.addEventListener("scroll", reveal);
-	reveal(); // Trigger on load
-</script>

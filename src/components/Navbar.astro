@@ -1,161 +1,275 @@
 ---
 ---
 
-<nav
-	class="fixed w-full z-50 transition-all duration-300 glass-nav"
-	id="navbar"
->
-	<div class="max-w-6xl mx-auto px-6 lg:px-8">
-		<div class="flex justify-between items-center h-20">
-			<!-- Logo -->
-			<div class="flex-shrink-0">
-				<a
-					href="#"
-					class="font-mono text-emerald-400 font-bold text-lg tracking-tighter flex items-center"
-				>
-					<span id="nav-logo-text"></span><span
-						class="cursor-blink">_</span
-					>
-				</a>
-			</div>
-
-			<!-- Desktop Menu -->
-			<div
-				class="hidden md:flex space-x-8 items-center font-sans text-sm font-medium"
-			>
-				<a
-					href="#about"
-					class="text-zinc-400 hover:text-emerald-400 transition-colors"
-					>01. About</a
-				>
-				<a
-					href="#experience"
-					class="text-zinc-400 hover:text-emerald-400 transition-colors"
-					>02. Experience</a
-				>
-				<a
-					href="#skills"
-					class="text-zinc-400 hover:text-emerald-400 transition-colors"
-					>03. Skills</a
-				>
-				<a
-					href="#projects"
-					class="text-zinc-400 hover:text-emerald-400 transition-colors"
-					>04. Projects</a
-				>
-				<a
-					href="#contact"
-					class="px-4 py-2 rounded border border-emerald-400/50 text-emerald-400 hover:bg-emerald-400/10 transition-colors font-mono text-xs"
-				>
-					Resume
-				</a>
-			</div>
-
-			<!-- Mobile Menu Button -->
-			<div class="md:hidden flex items-center">
-				<button
-					id="mobile-menu-btn"
-					class="text-zinc-400 hover:text-emerald-400 focus:outline-none"
-				>
-					<i class="fas fa-bars text-xl"></i>
-				</button>
-			</div>
-		</div>
-	</div>
-
-	<!-- Mobile Menu Panel -->
-	<div
-		id="mobile-menu"
-		class="hidden bg-zinc-900 border-b border-zinc-800 absolute w-full shadow-xl"
+<header class="fixed top-5 sm:top-8 z-50 w-full px-4 flex justify-center pointer-events-none">
+	<div 
+		id="expandable-menu"
+		class="pointer-events-auto group relative w-full max-w-[340px] sm:max-w-[355px] rounded-[1.6rem] bg-[var(--surface)]/95 border border-[var(--border)] backdrop-blur-md shadow-xl shadow-[var(--shadow-color)] transition-all duration-300 ease-out overflow-hidden"
 	>
-		<div
-			class="px-6 py-6 flex flex-col space-y-4 text-sm font-medium font-mono text-center"
+		<!-- Top Pill Header (Always Visible) -->
+		<div id="menu-trigger" class="flex items-center justify-between p-1.5 cursor-pointer select-none">
+			<!-- Avatar & Title -->
+			<div class="flex items-center gap-2.5 pl-1 py-0.5 overflow-hidden">
+				<div class="relative size-9 sm:size-10 shrink-0">
+					<img 
+						src="/profile.jpeg" 
+						alt="Hoiril Mochtar" 
+						class="size-full rounded-full object-cover object-top ring-1 ring-[var(--border)] group-hover:scale-105 transition-transform" 
+						loading="eager"
+					/>
+					<span class="absolute bottom-0 right-0 size-2.5 bg-emerald-500 rounded-full ring-2 ring-[var(--surface)]"></span>
+				</div>
+				
+				<div class="flex flex-col text-left leading-tight">
+					<span class="font-semibold text-xs sm:text-sm text-[var(--fg)] tracking-tight">Hoiril Mochtar</span>
+					
+					<!-- Subtitle: Dynamic Status when collapsed / Location when expanded -->
+					<div class="relative h-5 w-44 overflow-hidden text-xs">
+						<!-- Location shown when expanded/hovered -->
+						<div id="nav-location" class="absolute inset-0 flex items-center gap-1 text-[var(--muted)] font-medium leading-5 transition-all duration-300 transform translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100 group-[.is-open]:translate-y-0 group-[.is-open]:opacity-100">
+							<span>📍 Madura, Indonesia</span>
+						</div>
+
+						<!-- Cycling status shown when collapsed -->
+						<div id="nav-cycling-status" class="absolute inset-0 h-full transition-all duration-300 transform translate-y-0 opacity-100 group-hover:-translate-y-full group-hover:opacity-0 group-[.is-open]:-translate-y-full group-[.is-open]:opacity-0">
+							<span id="status-text-1" class="absolute inset-0 flex items-center text-[var(--muted)] leading-5 whitespace-nowrap transition-all duration-500 transform translate-y-0 opacity-100">
+								Middleware Engineer
+							</span>
+							<span id="status-text-2" class="absolute inset-0 flex items-center text-emerald-600 dark:text-emerald-400 font-medium leading-5 whitespace-nowrap transition-all duration-500 transform translate-y-full opacity-0">
+								Available for work
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Right Hint / Keyboard Shortcut -->
+			<div class="pr-2 flex items-center gap-1.5 text-[var(--muted)]">
+				<kbd class="hidden sm:inline-flex items-center gap-0.5 text-[11px] font-mono px-1.5 py-0.5 rounded-md bg-[var(--pill-bg)] border border-[var(--border)] text-[var(--muted)]">
+					<span class="text-[9px]">⌘</span>K
+				</kbd>
+				<svg class="size-4 transition-transform duration-300 group-hover:rotate-180 group-[.is-open]:rotate-180 text-[var(--muted)]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+					<path d="m6 9 6 6 6-6"/>
+				</svg>
+			</div>
+		</div>
+
+		<!-- Expandable Menu Body (Smooth Grid Transition) -->
+		<div 
+			id="menu-body"
+			class="grid transition-[grid-template-rows,opacity] duration-300 ease-out grid-rows-[0fr] opacity-0 group-hover:grid-rows-[1fr] group-hover:opacity-100 group-[.is-open]:grid-rows-[1fr] group-[.is-open]:opacity-100"
 		>
-			<a
-				href="#about"
-				class="text-zinc-400 hover:text-emerald-400 block py-2 mobile-link"
-				>01. About</a
-			>
-			<a
-				href="#experience"
-				class="text-zinc-400 hover:text-emerald-400 block py-2 mobile-link"
-				>02. Experience</a
-			>
-			<a
-				href="#skills"
-				class="text-zinc-400 hover:text-emerald-400 block py-2 mobile-link"
-				>03. Skills</a
-			>
-			<a
-				href="#projects"
-				class="text-zinc-400 hover:text-emerald-400 block py-2 mobile-link"
-				>04. Projects</a
-			>
+			<div class="overflow-hidden flex flex-col px-2 pb-2">
+				<div class="h-px bg-[var(--border)] my-1.5 mx-1"></div>
+
+				<!-- Section Links -->
+				<div class="flex flex-col gap-0.5 py-1">
+					<span class="text-[11px] font-semibold text-[var(--muted)] px-3 py-1 tracking-wider uppercase">
+						Sections
+					</span>
+
+					<a href="#hero" class="menu-link flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs text-[var(--fg)] hover:bg-[var(--surface-hover)] transition-colors">
+						<svg class="size-4 text-[var(--muted)]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+						<span>Home</span>
+					</a>
+
+					<a href="#experience" class="menu-link flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs text-[var(--fg)] hover:bg-[var(--surface-hover)] transition-colors">
+						<svg class="size-4 text-[var(--muted)]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="7" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+						<span>Experience</span>
+					</a>
+
+					<a href="#integrations" class="menu-link flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs text-[var(--fg)] hover:bg-[var(--surface-hover)] transition-colors">
+						<svg class="size-4 text-[var(--muted)]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+						<span>Key Integrations</span>
+					</a>
+
+					<a href="#projects" class="menu-link flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs text-[var(--fg)] hover:bg-[var(--surface-hover)] transition-colors">
+						<svg class="size-4 text-[var(--muted)]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 16 4-4-4-4"/><path d="m6 8-4 4 4 4"/><path d="m14.5 4-5 16"/></svg>
+						<span>Side Projects</span>
+					</a>
+
+					<a href="#stack" class="menu-link flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs text-[var(--fg)] hover:bg-[var(--surface-hover)] transition-colors">
+						<svg class="size-4 text-[var(--muted)]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+						<span>Tech Stack</span>
+					</a>
+				</div>
+
+				<div class="h-px bg-[var(--border)] my-1.5 mx-1"></div>
+
+				<!-- Theme Selector (Segmented Control) -->
+				<div class="flex flex-col gap-1.5 py-1">
+					<span class="text-[11px] font-semibold text-[var(--muted)] px-3 tracking-wider uppercase">
+						Theme
+					</span>
+
+					<div class="grid grid-cols-3 gap-1 p-1 rounded-2xl bg-[var(--pill-bg)] border border-[var(--border)]">
+						<button 
+							type="button" 
+							data-theme-val="light" 
+							class="theme-btn flex items-center justify-center gap-1.5 py-1.5 rounded-xl text-xs font-medium text-[var(--muted)] hover:text-[var(--fg)] transition-all cursor-pointer"
+						>
+							<svg class="size-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+								<circle cx="12" cy="12" r="4"></circle>
+								<path d="M12 2v2"></path>
+								<path d="M12 20v2"></path>
+								<path d="m4.93 4.93 1.41 1.41"></path>
+								<path d="m17.66 17.66 1.41 1.41"></path>
+								<path d="M2 12h2"></path>
+								<path d="M20 12h2"></path>
+								<path d="m6.34 17.66-1.41 1.41"></path>
+								<path d="m19.07 4.93-1.41 1.41"></path>
+							</svg>
+							<span>Light</span>
+						</button>
+
+						<button 
+							type="button" 
+							data-theme-val="dark" 
+							class="theme-btn flex items-center justify-center gap-1.5 py-1.5 rounded-xl text-xs font-medium text-[var(--muted)] hover:text-[var(--fg)] transition-all cursor-pointer"
+						>
+							<svg class="size-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+								<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+							</svg>
+							<span>Dark</span>
+						</button>
+
+						<button 
+							type="button" 
+							data-theme-val="system" 
+							class="theme-btn flex items-center justify-center gap-1.5 py-1.5 rounded-xl text-xs font-medium text-[var(--muted)] hover:text-[var(--fg)] transition-all cursor-pointer"
+						>
+							<svg class="size-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+								<rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/>
+							</svg>
+							<span>System</span>
+						</button>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
-</nav>
+</header>
 
 <script>
-	// --- Navbar Scroll Effect ---
-	const navbar = document.getElementById("navbar");
-	if (navbar) {
-		window.addEventListener("scroll", () => {
-			if (window.scrollY > 20) {
-				navbar.classList.add("shadow-lg");
-				navbar.classList.replace("py-4", "py-2");
-			} else {
-				navbar.classList.remove("shadow-lg");
-				navbar.classList.replace("py-2", "py-4");
+	// Cycling Status
+	const status1 = document.getElementById('status-text-1');
+	const status2 = document.getElementById('status-text-2');
+	let currentStatus = 1;
+
+	setInterval(() => {
+		if (!status1 || !status2) return;
+		if (currentStatus === 1) {
+			status1.classList.replace('translate-y-0', '-translate-y-full');
+			status1.classList.replace('opacity-100', 'opacity-0');
+			
+			status2.classList.replace('translate-y-full', 'translate-y-0');
+			status2.classList.replace('opacity-0', 'opacity-100');
+			currentStatus = 2;
+		} else {
+			status2.classList.replace('translate-y-0', 'translate-y-full');
+			status2.classList.replace('opacity-100', 'opacity-0');
+			
+			status1.classList.replace('-translate-y-full', 'translate-y-0');
+			status1.classList.replace('opacity-0', 'opacity-100');
+			currentStatus = 1;
+		}
+	}, 3500);
+
+	// Menu Toggle & Expand Logic
+	const menuCard = document.getElementById('expandable-menu');
+	const menuTrigger = document.getElementById('menu-trigger');
+
+	if (menuCard && menuTrigger) {
+		// Smooth hover expansion for desktop
+		let leaveTimeout: number | undefined;
+
+		menuCard.addEventListener('mouseenter', () => {
+			window.clearTimeout(leaveTimeout);
+			menuCard.classList.add('is-open');
+		});
+
+		menuCard.addEventListener('mouseleave', () => {
+			leaveTimeout = window.setTimeout(() => {
+				menuCard.classList.remove('is-open');
+			}, 150);
+		});
+
+		// Toggle with Click on trigger (especially for mobile/touch)
+		menuTrigger.addEventListener('click', (e) => {
+			e.stopPropagation();
+			menuCard.classList.toggle('is-open');
+		});
+
+		// Close when clicking outside
+		document.addEventListener('click', (e) => {
+			if (!menuCard.contains(e.target as Node)) {
+				menuCard.classList.remove('is-open');
 			}
 		});
-	}
 
-	// --- Mobile Menu Toggle ---
-	const mobileMenuBtn = document.getElementById("mobile-menu-btn");
-	const mobileMenu = document.getElementById("mobile-menu");
-
-	if (mobileMenuBtn && mobileMenu) {
-		mobileMenuBtn.addEventListener("click", () => {
-			mobileMenu.classList.toggle("hidden");
-			const icon = mobileMenuBtn.querySelector("i");
-			if (icon) {
-				if (mobileMenu.classList.contains("hidden")) {
-					icon.classList.remove("fa-times");
-					icon.classList.add("fa-bars");
-				} else {
-					icon.classList.remove("fa-bars");
-					icon.classList.add("fa-times");
-				}
-			}
-		});
-
-		// Close mobile menu on link click
-		document.querySelectorAll(".mobile-link").forEach((link) => {
-			link.addEventListener("click", () => {
-				mobileMenu.classList.add("hidden");
-				const icon = mobileMenuBtn.querySelector("i");
-				if (icon) {
-					icon.classList.remove("fa-times");
-					icon.classList.add("fa-bars");
-				}
+		// Close when clicking any menu link
+		document.querySelectorAll('.menu-link').forEach(link => {
+			link.addEventListener('click', () => {
+				menuCard.classList.remove('is-open');
 			});
 		});
+
+		// Keyboard shortcut (⌘K or Ctrl+K)
+		document.addEventListener('keydown', (e) => {
+			if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+				e.preventDefault();
+				menuCard.classList.toggle('is-open');
+			} else if (e.key === 'Escape') {
+				menuCard.classList.remove('is-open');
+			}
+		});
 	}
 
-	// --- Navbar Logo Typing Effect ---
-	const logoText = "~ hoirilmochtar ";
-	const logoElement = document.getElementById("nav-logo-text");
-	let logoIndex = 0;
-
-	function typeLogo() {
-		if (logoElement && logoIndex < logoText.length) {
-			logoElement.textContent += logoText.charAt(logoIndex);
-			logoIndex++;
-			// Randomize typing speed for realistic effect (50ms to 150ms)
-			setTimeout(typeLogo, Math.random() * 100 + 50);
+	// Theme Segmented Control Logic
+	const themeBtns = document.querySelectorAll('.theme-btn');
+	
+	function applyTheme(themeValue: string) {
+		const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+		
+		if (themeValue === 'dark') {
+			document.documentElement.classList.add('dark');
+			localStorage.setItem('theme', 'dark');
+		} else if (themeValue === 'light') {
+			document.documentElement.classList.remove('dark');
+			localStorage.setItem('theme', 'light');
+		} else { // System
+			localStorage.removeItem('theme');
+			if (prefersDark) {
+				document.documentElement.classList.add('dark');
+			} else {
+				document.documentElement.classList.remove('dark');
+			}
 		}
+
+		// Update button active state
+		themeBtns.forEach(btn => {
+			const val = btn.getAttribute('data-theme-val');
+			if (val === themeValue) {
+				btn.classList.add('bg-[var(--surface)]', 'text-[var(--fg)]', 'shadow-xs');
+				btn.classList.remove('text-[var(--muted)]');
+			} else {
+				btn.classList.remove('bg-[var(--surface)]', 'text-[var(--fg)]', 'shadow-xs');
+				btn.classList.add('text-[var(--muted)]');
+			}
+		});
 	}
 
-	// Start logo typing after a short delay
-	setTimeout(typeLogo, 500);
+	// Initialize active theme button state
+	const savedTheme = localStorage.getItem('theme') || 'system';
+	applyTheme(savedTheme);
+
+	themeBtns.forEach(btn => {
+		btn.addEventListener('click', (e) => {
+			e.stopPropagation();
+			const val = btn.getAttribute('data-theme-val');
+			if (val) {
+				applyTheme(val);
+			}
+		});
+	});
 </script>
